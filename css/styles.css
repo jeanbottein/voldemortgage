@@ -153,12 +153,25 @@ h3 {
 
 .form-field-wrapper {
     flex: 1; /* Field takes remaining space */
+    display: flex;
+    align-items: center;
 }
 
 /* Default width for inputs/selects within the new form structure */
 .form-field-wrapper input,
 .form-field-wrapper select {
-    width: 100%; /* Make them fill their wrapper by default */
+    /* width: 100%; Make them fill their wrapper by default - Removed */
+    /* flex-grow: 1; Input takes available space - Removed to allow specific widths to take effect */
+    /* The specific width: 14ch for numeric inputs (e.g., #price) should now primarily control their width. */
+    /* Add a default max-width to prevent overflow if no specific width is set and wrapper is too small */
+    max-width: 100%; 
+}
+
+.input-unit {
+    margin-left: 0.5rem; /* Space between input and unit */
+    color: var(--secondary-text-color);
+    font-size: 0.9em;
+    white-space: nowrap; /* Prevent unit from wrapping */
 }
 
 /* Consistent styling for primary numeric input fields */

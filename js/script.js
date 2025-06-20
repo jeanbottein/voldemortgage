@@ -25,6 +25,12 @@ const prevBtn = document.getElementById('prevBtn');
 const nextBtn = document.getElementById('nextBtn');
 const pageInfo = document.getElementById('pageInfo');
 
+// Unit Spans for currency
+const priceUnit = document.getElementById('priceUnit');
+const downPaymentAmountUnit = document.getElementById('downPaymentAmountUnit');
+const buyingFeesUnit = document.getElementById('buyingFeesUnit');
+const buyingTaxesUnit = document.getElementById('buyingTaxesUnit');
+
 // Theme switcher elements
 const themeSelect = document.getElementById('theme-select');
 
@@ -48,7 +54,8 @@ document.addEventListener('DOMContentLoaded', function() {
     buyingFeesInput.addEventListener('input', calculateMortgage);
     buyingTaxesInput.addEventListener('input', calculateMortgage);
     currencySelect.addEventListener('change', () => {
-        updateDownPaymentAmountLabelText();
+        updateAllCurrencyUnitSpans(currencySelect.value);
+        updateDownPaymentAmountLabelText(); // Label text itself might not need to change now
         calculateMortgage(); // Always attempt to recalculate on currency change
     });
     // calculateBtn.addEventListener('click', calculateMortgage); // Button no longer primary trigger
@@ -70,6 +77,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Initial theme load
     loadTheme();
+
+    updateAllCurrencyUnitSpans(currencySelect.value); // Set initial currency unit spans
 
     // Add event listeners for custom increment/decrement buttons
     const valueChangeButtons = document.querySelectorAll('.btn-decrement, .btn-increment');
@@ -139,8 +148,8 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function updateDownPaymentAmountLabelText() {
-    const selectedSymbol = currencySelect.value;
-    downPaymentAmountLabel.textContent = `Down Payment (${selectedSymbol})`;
+    // const selectedSymbol = currencySelect.value; // No longer needed here as symbol is in the unit span
+    downPaymentAmountLabel.textContent = "Down Payment"; // Keep label static
     // If amount is already set, re-format it with new currency (optional)
     // This part might not be necessary if inputs are not reformatted live
     if (downPaymentAmountInput.value) {
@@ -244,7 +253,7 @@ function updateDownPaymentFromAmount() {
 
 // Format currency
 function formatCurrency(amount) {
-    const selectedSymbol = currencySelect.value;
+    // const selectedSymbol = currencySelect.value; // Symbol is now handled by separate unit spans
     const roundedAmount = Math.round(amount); // Round to nearest whole number
 
     // Format the number using browser's default locale for number parts (e.g., thousand separators)
@@ -254,8 +263,7 @@ function formatCurrency(amount) {
         maximumFractionDigits: 0
     }).format(roundedAmount);
 
-    // Append the selected symbol
-    return `${formattedNumber} ${selectedSymbol}`;
+    return formattedNumber; // Return only the formatted number
 }
 
 // Format date
@@ -532,6 +540,14 @@ function applyTheme(theme) {
 function loadTheme() {
     const savedTheme = localStorage.getItem('theme') || 'system';
     applyTheme(savedTheme);
+}
+
+// Function to update all currency unit spans
+function updateAllCurrencyUnitSpans(newSymbol) {
+    if (priceUnit) priceUnit.textContent = newSymbol;
+    if (downPaymentAmountUnit) downPaymentAmountUnit.textContent = newSymbol;
+    if (buyingFeesUnit) buyingFeesUnit.textContent = newSymbol;
+    if (buyingTaxesUnit) buyingTaxesUnit.textContent = newSymbol;
 }
 
 // Listen for OS theme changes if 'system' is selected
