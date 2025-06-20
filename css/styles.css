@@ -129,15 +129,58 @@ h3 {
     transition: color 0.3s;
 }
 
-.input-group {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 1.5rem;
-    margin-bottom: 1.5rem;
+/* New Form Layout Styles */
+.input-form-container {
+    width: 50%; /* Occupy left half, adjust as needed */
+    float: left;
+    padding-right: 2rem; /* Space for future graphics */
+    box-sizing: border-box;
+    margin-bottom: 2rem; /* Space below the form */
 }
 
-.form-group {
-    margin-bottom: 1rem;
+.form-row {
+    display: flex;
+    align-items: center; /* Vertically align label and field */
+    margin-bottom: 1rem; /* Space between rows */
+}
+
+.form-label-wrapper {
+    flex: 0 0 180px; /* Fixed width for labels, adjust as needed */
+    text-align: right;
+    padding-right: 1rem; /* Space between label and field */
+    box-sizing: border-box;
+}
+
+.form-field-wrapper {
+    flex: 1; /* Field takes remaining space */
+}
+
+/* Default width for inputs/selects within the new form structure */
+.form-field-wrapper input,
+.form-field-wrapper select {
+    width: 100%; /* Make them fill their wrapper by default */
+}
+
+/* Specific widths for amount and percentage fields */
+#price,
+#downPaymentAmount {
+    width: 12ch; /* Approx 10 digits wide */
+    max-width: 100%; /* Ensure responsiveness */
+}
+
+#downPaymentPercent,
+#interestRate {
+    width: 7ch; /* Approx 3-4 digits wide */
+    max-width: 100%; /* Ensure responsiveness */
+}
+
+/* Ensure labels inside wrappers still get their styles */
+.form-label-wrapper label {
+    display: block; 
+    margin-bottom: 0; /* Remove bottom margin as row handles spacing */
+    font-weight: 500;
+    color: var(--primary-text-color);
+    transition: color 0.3s;
 }
 
 label {
@@ -158,6 +201,64 @@ input, select {
     font-size: 0.9rem;
     box-sizing: border-box; /* Ensure padding and border don't increase width */
     transition: background-color 0.3s, border-color 0.3s, color 0.3s;
+}
+
+/* Hide default number input spinners */
+/* For Chrome, Safari, Edge, Opera */
+input[type=number]::-webkit-outer-spin-button,
+input[type=number]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+/* For Firefox */
+input[type=number] {
+    -moz-appearance: textfield;
+    appearance: textfield; /* Standard property for compatibility */
+}
+
+/* Custom Number Input Styles */
+.custom-number-input {
+    display: flex;
+    align-items: center; /* Vertically align items */
+}
+
+.custom-number-input input[type=number] {
+    text-align: center;
+    border-left: none;
+    border-right: none;
+    border-radius: 0; /* Remove border-radius from input where it meets buttons */
+    /* Keep specific width from #id selectors, but ensure it doesn't expand beyond its flex item space */
+    flex-grow: 1; /* Allow input to take available space if needed, but width is constrained by its own styles */
+    min-width: 0; /* Important for flex items with explicit width */
+}
+
+.custom-number-input button {
+    background-color: var(--button-bg);
+    color: var(--button-text);
+    border: 1px solid var(--input-border); /* Match input border */
+    padding: 0.5rem 0.75rem; /* Adjust padding as needed */
+    cursor: pointer;
+    font-size: 0.9rem;
+    line-height: 1; /* Ensure text is centered if padding makes it tall */
+    display: flex; /* For centering content if needed */
+    align-items: center;
+    justify-content: center;
+    width: auto; /* Override general button width: 100% */
+    transition: background-color 0.3s, filter 0.3s;
+}
+
+.custom-number-input button:hover {
+    filter: brightness(90%);
+}
+
+.custom-number-input .btn-decrement {
+    border-right: none;
+    border-radius: 4px 0 0 4px; /* Half-round on the left */
+}
+
+.custom-number-input .btn-increment {
+    border-left: none;
+    border-radius: 0 4px 4px 0; /* Half-round on the right */
 }
 
 input:-webkit-autofill,

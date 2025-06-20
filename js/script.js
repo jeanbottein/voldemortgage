@@ -31,7 +31,7 @@ let isUpdatingDownPayment = false;
 
 // Event Listeners
 document.addEventListener('DOMContentLoaded', function() {
-    loadTheme(); // Load saved theme or system default
+     // Load saved theme or system default
 
     if (themeSelect) {
         themeSelect.addEventListener('change', (event) => {
@@ -57,6 +57,75 @@ document.addEventListener('DOMContentLoaded', function() {
     downPaymentPercentInput.value = '15';
     updateDownPaymentFromPercent(); // Calculate initial amount from percent
     document.getElementById('interestRate').value = '3.5';
+
+    // Initial theme load
+    loadTheme();
+
+    // Add event listeners for custom increment/decrement buttons
+    const valueChangeButtons = document.querySelectorAll('.btn-decrement, .btn-increment');
+
+    valueChangeButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const targetInputId = button.dataset.targetInput;
+            const targetInput = document.getElementById(targetInputId);
+
+            if (targetInput) {
+                const currentValue = parseFloat(targetInput.value) || 0;
+                const stepAttribute = targetInput.step;
+                const step = parseFloat(stepAttribute) || 1;
+                const min = targetInput.min !== '' ? parseFloat(targetInput.min) : -Infinity;
+                const max = targetInput.max !== '' ? parseFloat(targetInput.max) : Infinity;
+                let newValue;
+
+                console.log(`--- Button Click (${button.classList.contains('btn-increment') ? 'INCREMENT' : 'DECREMENT'}) for Input ID: ${targetInputId} ---`);
+                console.log('Current Input Value (string):', targetInput.value);
+                console.log('Parsed Current Value:', currentValue);
+                console.log('Step Attribute (string):', stepAttribute);
+                console.log('Parsed Step:', step);
+
+                let calculatedNewValue;
+                const scale = (String(step).split('.')[1] || '').length; // Number of decimal places in step
+                const scaleFactor = Math.pow(10, scale);
+                
+                console.log('Scale for arithmetic (0 for integer steps):', scale);
+                console.log('Scale Factor for arithmetic (1 for integer steps):', scaleFactor);
+
+                if (button.classList.contains('btn-increment')) {
+                    calculatedNewValue = (currentValue * scaleFactor + step * scaleFactor) / scaleFactor;
+                } else {
+                    calculatedNewValue = (currentValue * scaleFactor - step * scaleFactor) / scaleFactor;
+                }
+
+                console.log('New Value (after scaled +/- step, before min/max/rounding):', calculatedNewValue);
+
+                // Ensure value is within min/max bounds
+                calculatedNewValue = Math.max(min, Math.min(max, calculatedNewValue));
+                console.log('New Value (after min/max, before final rounding):', calculatedNewValue);
+                
+                // Round to the number of decimal places dictated by the step attribute
+                if (step % 1 !== 0) { // Only apply toFixed for decimal steps
+                    console.log('Rounding: Decimal Places in Step:', scale);
+                    console.log('Rounding: Value Before .toFixed():', calculatedNewValue);
+                    newValue = parseFloat(calculatedNewValue.toFixed(scale));
+                    console.log('Rounding: Value After .toFixed() and parseFloat():', newValue);
+                } else { // For integer steps, use the value directly
+                    newValue = calculatedNewValue;
+                    console.log('Integer step: Value after min/max (no toFixed needed):', newValue);
+                }
+
+                targetInput.value = newValue;
+                console.log('Final targetInput.value set to:', targetInput.value);
+                console.log('--------------------------------------------------');
+
+                // Manually trigger an 'input' event to ensure calculations and other listeners fire
+                const inputEvent = new Event('input', {
+                    bubbles: true,
+                    cancelable: true,
+                });
+                targetInput.dispatchEvent(inputEvent);
+            }
+        });
+    });
 });
 
 function updateDownPaymentAmountLabelText() {
@@ -101,30 +170,48 @@ function handlePriceChange() {
 }
 
 function updateDownPaymentFromPercent() {
-    if (isUpdatingDownPayment) return;
+    console.log('[DP % Handler] Entered. Current downPaymentPercentInput.value:', document.getElementById('downPaymentPercent').value);
+    if (isUpdatingDownPayment) {
+        console.log('[DP % Handler] Exiting due to isUpdatingDownPayment flag.');
+        return;
+    }
     isUpdatingDownPayment = true;
 
     const price = parseFloat(priceInput.value) || 0;
     const percent = parseFloat(downPaymentPercentInput.value);
+    console.log('[DP % Handler] Parsed percent:', percent);
 
     if (!isNaN(percent)) {
-        if (percent < 0) downPaymentPercentInput.value = '0';
-        if (percent > 100) downPaymentPercentInput.value = '100';
-        const newAmount = (price * parseFloat(downPaymentPercentInput.value)) / 100;
-        downPaymentAmountInput.value = Math.round(newAmount);
+        if (percent < 0) {
+            console.log('[DP % Handler] Percent < 0, setting to 0. Old value:', downPaymentPercentInput.value);
+            // downPaymentPercentInput.value = '0'; // Temporarily commented out
+        }
+        if (percent > 100) {
+            console.log('[DP % Handler] Percent > 100, setting to 100. Old value:', downPaymentPercentInput.value);
+            // downPaymentPercentInput.value = '100'; // Temporarily commented out
+        }
+        // const newAmount = (price * parseFloat(downPaymentPercentInput.value)) / 100; // Temporarily commented out
+        // downPaymentAmountInput.value = Math.round(newAmount); // Temporarily commented out
+        console.log('[DP % Handler] Update to downPaymentAmountInput and calculateMortgage call are TEMPORARILY COMMENTED OUT.');
     } else {
-        downPaymentAmountInput.value = '';
+        // downPaymentAmountInput.value = ''; // Temporarily commented out
+        console.log('[DP % Handler] Update to downPaymentAmountInput (else branch) TEMPORARILY COMMENTED OUT.');
     }
     isUpdatingDownPayment = false;
-    calculateMortgage(); // Trigger recalculation
+    // calculateMortgage(); // Trigger recalculation // Temporarily commented out
 }
 
 function updateDownPaymentFromAmount() {
-    if (isUpdatingDownPayment) return;
+    console.log('[DP Amt Handler] Entered. Current downPaymentPercentInput.value:', document.getElementById('downPaymentPercent').value, 'Current downPaymentAmountInput.value:', document.getElementById('downPaymentAmount').value);
+    if (isUpdatingDownPayment) {
+        console.log('[DP Amt Handler] Exiting due to isUpdatingDownPayment flag.');
+        return;
+    }
     isUpdatingDownPayment = true;
 
     const price = parseFloat(priceInput.value) || 0;
     const amount = parseFloat(downPaymentAmountInput.value);
+    console.log('[DP Amt Handler] Parsed amount:', amount);
 
     if (!isNaN(amount)) {
         if (amount < 0) downPaymentAmountInput.value = '0';
@@ -132,7 +219,9 @@ function updateDownPaymentFromAmount() {
         
         if (price > 0) {
             const newPercent = (parseFloat(downPaymentAmountInput.value) / price) * 100;
+            console.log('[DP Amt Handler] Calculated newPercent:', newPercent, 'Current downPaymentPercentInput.value before change:', downPaymentPercentInput.value);
             downPaymentPercentInput.value = newPercent.toFixed(2);
+            console.log('[DP Amt Handler] downPaymentPercentInput.value AFTER change:', downPaymentPercentInput.value);
         } else {
             downPaymentPercentInput.value = ''; // Cannot calculate percent if price is 0
         }
@@ -168,6 +257,7 @@ function formatDate(monthsToAdd) {
 
 // Calculate mortgage
 function calculateMortgage() {
+    console.log('[CalcMortgage] Entered. Current interestRate.value:', document.getElementById('interestRate').value, 'Current downPaymentPercentInput.value:', document.getElementById('downPaymentPercent').value);
     // Get input values
     const price = parseFloat(priceInput.value);
     const interestRate = parseFloat(document.getElementById('interestRate').value) / 100 / 12; // Monthly interest rate
@@ -440,3 +530,51 @@ window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () 
 window.updatePagination = updatePagination;
 window.previousPage = previousPage;
 window.nextPage = nextPage;
+
+document.addEventListener('DOMContentLoaded', () => {
+    // Add event listeners for custom increment/decrement buttons
+    const valueChangeButtons = document.querySelectorAll('.btn-decrement, .btn-increment');
+
+    valueChangeButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const targetInputId = button.dataset.targetInput;
+            const targetInput = document.getElementById(targetInputId);
+
+            if (targetInput) {
+                const currentValue = parseFloat(targetInput.value) || 0;
+                const step = parseFloat(targetInput.step) || 1;
+                const min = targetInput.min !== '' ? parseFloat(targetInput.min) : -Infinity;
+                const max = targetInput.max !== '' ? parseFloat(targetInput.max) : Infinity;
+                let newValue;
+
+                if (button.classList.contains('btn-increment')) {
+                    newValue = currentValue + step;
+                } else {
+                    newValue = currentValue - step;
+                }
+
+                // Ensure value is within min/max bounds
+                newValue = Math.max(min, Math.min(max, newValue));
+                
+                // Round to a reasonable number of decimal places if step is a float
+                if (step % 1 !== 0) {
+                    // Count decimal places in step
+                    const decimalPlaces = (String(step).split('.')[1] || '').length;
+                    newValue = parseFloat(newValue.toFixed(decimalPlaces));
+                }
+
+                targetInput.value = newValue;
+
+                // Manually trigger an 'input' event to ensure calculations and other listeners fire
+                const inputEvent = new Event('input', {
+                    bubbles: true,
+                    cancelable: true,
+                });
+                targetInput.dispatchEvent(inputEvent);
+            }
+        });
+    });
+
+    // Initial theme load
+    loadTheme();
+});
