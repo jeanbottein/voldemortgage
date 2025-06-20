@@ -55,8 +55,12 @@ document.addEventListener('DOMContentLoaded', function() {
     // Set default values for testing
     priceInput.value = '500000';
     downPaymentPercentInput.value = '15';
-    updateDownPaymentFromPercent(); // Calculate initial amount from percent
-    document.getElementById('interestRate').value = '3.5';
+    document.getElementById('interestRate').value = '3.5'; // Set interest rate before functions that might use it
+    // loanTermSelect defaults via HTML 'selected' attribute
+
+    // Calculate initial down payment amount from percent.
+    // This function is expected to also call calculateMortgage(), which will now see the correct interest rate.
+    updateDownPaymentFromPercent(); 
 
     // Initial theme load
     loadTheme();
@@ -178,27 +182,27 @@ function updateDownPaymentFromPercent() {
     isUpdatingDownPayment = true;
 
     const price = parseFloat(priceInput.value) || 0;
-    const percent = parseFloat(downPaymentPercentInput.value);
+    let percent = parseFloat(downPaymentPercentInput.value);
     console.log('[DP % Handler] Parsed percent:', percent);
 
     if (!isNaN(percent)) {
         if (percent < 0) {
-            console.log('[DP % Handler] Percent < 0, setting to 0. Old value:', downPaymentPercentInput.value);
-            // downPaymentPercentInput.value = '0'; // Temporarily commented out
+            console.log('[DP % Handler] Percent < 0, clamping to 0. Old value:', downPaymentPercentInput.value);
+            downPaymentPercentInput.value = '0';
+            percent = 0; // Update local variable too
         }
         if (percent > 100) {
-            console.log('[DP % Handler] Percent > 100, setting to 100. Old value:', downPaymentPercentInput.value);
-            // downPaymentPercentInput.value = '100'; // Temporarily commented out
+            console.log('[DP % Handler] Percent > 100, clamping to 100. Old value:', downPaymentPercentInput.value);
+            downPaymentPercentInput.value = '100';
+            percent = 100; // Update local variable too
         }
-        // const newAmount = (price * parseFloat(downPaymentPercentInput.value)) / 100; // Temporarily commented out
-        // downPaymentAmountInput.value = Math.round(newAmount); // Temporarily commented out
-        console.log('[DP % Handler] Update to downPaymentAmountInput and calculateMortgage call are TEMPORARILY COMMENTED OUT.');
+        const newAmount = (price * percent) / 100;
+        downPaymentAmountInput.value = Math.round(newAmount);
     } else {
-        // downPaymentAmountInput.value = ''; // Temporarily commented out
-        console.log('[DP % Handler] Update to downPaymentAmountInput (else branch) TEMPORARILY COMMENTED OUT.');
+        downPaymentAmountInput.value = '';
     }
     isUpdatingDownPayment = false;
-    // calculateMortgage(); // Trigger recalculation // Temporarily commented out
+    calculateMortgage(); // Trigger recalculation
 }
 
 function updateDownPaymentFromAmount() {
