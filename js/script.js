@@ -161,7 +161,7 @@ function handlePriceChange() {
         // If amount is set (and percent is not), update percent
         if (price > 0) {
             const newPercent = (amount / price) * 100;
-            downPaymentPercentInput.value = newPercent.toFixed(2);
+            downPaymentPercentInput.value = newPercent.toFixed(0);
         } else {
             downPaymentPercentInput.value = ''; // Cannot calculate percent if price is 0
         }
@@ -224,7 +224,7 @@ function updateDownPaymentFromAmount() {
         if (price > 0) {
             const newPercent = (parseFloat(downPaymentAmountInput.value) / price) * 100;
             console.log('[DP Amt Handler] Calculated newPercent:', newPercent, 'Current downPaymentPercentInput.value before change:', downPaymentPercentInput.value);
-            downPaymentPercentInput.value = newPercent.toFixed(2);
+            downPaymentPercentInput.value = newPercent.toFixed(0);
             console.log('[DP Amt Handler] downPaymentPercentInput.value AFTER change:', downPaymentPercentInput.value);
         } else {
             downPaymentPercentInput.value = ''; // Cannot calculate percent if price is 0
