@@ -161,17 +161,32 @@ h3 {
     width: 100%; /* Make them fill their wrapper by default */
 }
 
-/* Specific widths for amount and percentage fields */
+/* Consistent styling for primary numeric input fields */
 #price,
-#downPaymentAmount {
-    width: 12ch; /* Approx 10 digits wide */
+#downPaymentPercent,
+#downPaymentAmount,
+#interestRate,
+#loanTerm {
+    width: 14ch; /* Approx 10-12 digits wide */
     max-width: 100%; /* Ensure responsiveness */
+    text-align: left;
+    -moz-appearance: textfield; /* Hide spinners in Firefox */
+    appearance: textfield; /* Standard property to hide spinners */
 }
 
-#downPaymentPercent,
-#interestRate {
-    width: 7ch; /* Approx 3-4 digits wide */
-    max-width: 100%; /* Ensure responsiveness */
+/* Hide spinners for Webkit/Blink browsers (Chrome, Safari, Edge, Opera) */
+#price::-webkit-outer-spin-button,
+#price::-webkit-inner-spin-button,
+#downPaymentPercent::-webkit-outer-spin-button,
+#downPaymentPercent::-webkit-inner-spin-button,
+#downPaymentAmount::-webkit-outer-spin-button,
+#downPaymentAmount::-webkit-inner-spin-button,
+#interestRate::-webkit-outer-spin-button,
+#interestRate::-webkit-inner-spin-button,
+#loanTerm::-webkit-outer-spin-button,
+#loanTerm::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0; /* Removes the space allocated for spinners */
 }
 
 /* Ensure labels inside wrappers still get their styles */
