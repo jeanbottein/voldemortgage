@@ -131,9 +131,9 @@ h3 {
 
 /* New Form Layout Styles */
 .input-form-container {
-    width: 50%; /* Occupy left half, adjust as needed */
-    float: left;
-    padding-right: 2rem; /* Space for future graphics */
+    /* width: 50%; Occupy left half, adjust as needed - Removed */
+    /* float: left; - Removed */
+    /* padding-right: 2rem; Space for future graphics - Removed */
     box-sizing: border-box;
     margin-bottom: 2rem; /* Space below the form */
 }
