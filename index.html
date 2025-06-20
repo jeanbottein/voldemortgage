@@ -1,14 +1,20 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" id="html-root">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mortgage Calculator</title>
+    <title data-i18n="title">Mortgage Calculator</title>
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
     <div class="container">
         <div class="top-right-controls">
+            <div id="language-selector-wrapper">
+                <select id="language-select" title="Select Language">
+                    <option value="en">🇺🇸 English</option>
+                    <!-- Add more languages here as they become available -->
+                </select>
+            </div>
             <div id="currency-selector-wrapper">
                 <select id="currency" name="currency" title="Select Currency">
                     <option value="$">$</option>
@@ -27,11 +33,11 @@
                 </select>
             </div>
         </div>
-        <h1>Mortgage Calculator</h1>
+        <h1 data-i18n="title">Mortgage Calculator</h1>
         <div class="input-form-container">
             <div class="form-row">
                 <div class="form-label-wrapper">
-                    <label for="price">Property Price</label>
+                    <label for="price" data-i18n="propertyPrice">Property Price</label>
                 </div>
                 <div class="form-field-wrapper">
                     <input type="number" id="price" name="price" placeholder="E.g., 300000" min="0" step="1000" required>
@@ -41,7 +47,7 @@
 
             <div class="form-row">
                 <div class="form-label-wrapper">
-                    <label for="downPaymentPercent">Down Payment</label>
+                    <label for="downPaymentPercent" data-i18n="downPayment">Down Payment</label>
                 </div>
                 <div class="form-field-wrapper">
                     <input type="number" id="downPaymentPercent" name="downPaymentPercent" placeholder="E.g., 20" step="1" min="0" max="100">
@@ -51,7 +57,7 @@
 
             <div class="form-row">
                 <div class="form-label-wrapper">
-                    <label for="downPaymentAmount" id="downPaymentAmountLabel">Down Payment</label>
+                    <label for="downPaymentAmount" id="downPaymentAmountLabel" data-i18n="downPayment">Down Payment</label>
                 </div>
                 <div class="form-field-wrapper">
                     <input type="number" id="downPaymentAmount" name="downPaymentAmount" placeholder="E.g., 60000" step="100" min="0">
@@ -61,7 +67,7 @@
 
             <div class="form-row">
                 <div class="form-label-wrapper">
-                    <label for="interestRate">Interest Rate</label>
+                    <label for="interestRate" data-i18n="interestRate">Interest Rate</label>
                 </div>
                 <div class="form-field-wrapper">
                     <input type="number" id="interestRate" name="interestRate" placeholder="E.g., 3.5" step="0.1" min="0" max="100" required>
@@ -71,17 +77,17 @@
 
             <div class="form-row">
                 <div class="form-label-wrapper">
-                    <label for="loanTerm">Loan Term</label>
+                    <label for="loanTerm" data-i18n="loanTerm">Loan Term</label>
                 </div>
                 <div class="form-field-wrapper">
                     <input type="number" id="loanTerm" name="loanTerm" value="30" step="5" min="1" required>
-                    <span class="input-unit">years</span>
+                    <span class="input-unit" data-i18n="years">years</span>
                 </div>
             </div>
         
             <div class="form-row">
                 <div class="form-label-wrapper">
-                    <label for="buyingFees">Buying Fees</label>
+                    <label for="buyingFees" data-i18n="buyingFees">Buying Fees</label>
                 </div>
                 <div class="form-field-wrapper">
                     <input type="number" id="buyingFees" name="buyingFees" value="0" step="any" placeholder="0">
@@ -90,7 +96,7 @@
             </div>
             <div class="form-row">
                 <div class="form-label-wrapper">
-                    <label for="buyingTaxes">Buying Taxes</label>
+                    <label for="buyingTaxes" data-i18n="buyingTaxes">Buying Taxes</label>
                 </div>
                 <div class="form-field-wrapper">
                     <input type="number" id="buyingTaxes" name="buyingTaxes" value="0" step="any" placeholder="0">
@@ -103,50 +109,50 @@
         <div id="error" class="error"></div>
         
         <div class="summary" id="summary" style="display: none;">
-            <h3>Mortgage Summary</h3>
+            <h3 data-i18n="mortgageSummary">Mortgage Summary</h3>
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
                 <ul>
-                    <li>Property Price: <span id="summaryPrice"></span></li>
-                    <li>+ Buying Fees: <span id="summaryBuyingFees"></span></li>
-                    <li>+ Buying Taxes: <span id="summaryBuyingTaxes"></span></li>
-                    <li>- Down Payment: <span id="summaryDownPayment"></span></li>
-                    <li><strong>Total Loan Amount:</strong> <span id="summaryLoanAmount"></span></li>
+                    <li><span data-i18n="summaryPrice">Property Price:</span> <span id="summaryPrice"></span></li>
+                    <li><span data-i18n="summaryBuyingFees">+ Buying Fees:</span> <span id="summaryBuyingFees"></span></li>
+                    <li><span data-i18n="summaryBuyingTaxes">+ Buying Taxes:</span> <span id="summaryBuyingTaxes"></span></li>
+                    <li><span data-i18n="summaryDownPayment">- Down Payment:</span> <span id="summaryDownPayment"></span></li>
+                    <li><strong data-i18n="summaryLoanAmount">Total Loan Amount:</strong> <span id="summaryLoanAmount"></span></li>
                 </ul>
                 <div>
-                    <p><strong>Interest Rate:</strong> <span id="summaryInterestRate"></span></p>
-                    <p><strong>Loan Term:</strong> <span id="summaryLoanTerm"></span></p>
-                    <p><strong>Monthly Payment:</strong> <span id="summaryMonthlyPayment"></span></p>
+                    <p><strong data-i18n="summaryInterestRate">Interest Rate:</strong> <span id="summaryInterestRate"></span></p>
+                    <p><strong data-i18n="summaryLoanTerm">Loan Term:</strong> <span id="summaryLoanTerm"></span></p>
+                    <p><strong data-i18n="summaryMonthlyPayment">Monthly Payment:</strong> <span id="summaryMonthlyPayment"></span></p>
                 </div>
                 <div>
-                    <p><strong>Total Interest:</strong> <span id="summaryTotalInterest"></span></p>
-                    <p><strong>Total Cost:</strong> <span id="summaryTotalCost"></span></p>
-                    <p><strong>Pay-off Date:</strong> <span id="summaryPayoffDate"></span></p>
+                    <p><strong data-i18n="summaryTotalInterest">Total Interest:</strong> <span id="summaryTotalInterest"></span></p>
+                    <p><strong data-i18n="summaryTotalCost">Total Cost:</strong> <span id="summaryTotalCost"></span></p>
+                    <p><strong data-i18n="summaryPayoffDate">Pay-off Date:</strong> <span id="summaryPayoffDate"></span></p>
                 </div>
             </div>
         </div>
         
         <div class="results" id="results" style="display: none;">
-            <h3>Amortization Schedule</h3>
+            <h3 data-i18n="amortizationSchedule">Amortization Schedule</h3>
             <div style="margin: 1rem 0;">
-                <label for="pagination">Show rows per page: </label>
+                <label for="pagination" data-i18n="showRowsPerPage">Show rows per page: </label>
                 <select id="pagination" onchange="updatePagination()">
-                    <option value="12">12 (1 year)</option>
-                    <option value="24">24 (2 years)</option>
-                    <option value="60">60 (5 years)</option>
-                    <option value="120">120 (10 years)</option>
-                    <option value="0" selected>All</option>
+                    <option value="12" data-i18n="oneYear">12 (1 year)</option>
+                    <option value="24" data-i18n="twoYears">24 (2 years)</option>
+                    <option value="60" data-i18n="fiveYears">60 (5 years)</option>
+                    <option value="120" data-i18n="tenYears">120 (10 years)</option>
+                    <option value="0" selected data-i18n="all">All</option>
                 </select>
             </div>
             <div style="overflow-x: auto;">
                 <table id="amortizationTable">
                     <thead>
                         <tr>
-                            <th>Month</th>
-                            <th>Payment</th>
-                            <th>Principal</th>
-                            <th>Interest</th>
-                            <th>Total Interest</th>
-                            <th>Remaining Balance</th>
+                            <th data-i18n="month">Month</th>
+                            <th data-i18n="payment">Payment</th>
+                            <th data-i18n="principal">Principal</th>
+                            <th data-i18n="interest">Interest</th>
+                            <th data-i18n="totalInterest">Total Interest</th>
+                            <th data-i18n="remainingBalance">Remaining Balance</th>
                         </tr>
                     </thead>
                     <tbody id="amortizationBody">
@@ -155,13 +161,33 @@
                 </table>
             </div>
             <div style="margin-top: 1rem; text-align: center;" class="pagination-controls">
-                <button id="prevBtn" onclick="previousPage()" disabled>Previous</button>
+                <button id="prevBtn" onclick="previousPage()" disabled data-i18n="previous">Previous</button>
                 <span id="pageInfo" class="pagination-info">Page 1</span>
-                <button id="nextBtn" onclick="nextPage()" disabled>Next</button>
+                <button id="nextBtn" onclick="nextPage()" disabled data-i18n="next">Next</button>
             </div>
         </div>
     </div>
 
+    <script src="js/i18n/lang.js"></script>
     <script src="js/script.js" defer></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize i18n
+            if (window.i18n) {
+                window.i18n.initLanguage();
+                
+                // Set up language selector
+                const languageSelect = document.getElementById('language-select');
+                if (languageSelect) {
+                    languageSelect.addEventListener('change', function() {
+                        window.i18n.setLanguage(this.value);
+                    });
+                    
+                    // Set to current language
+                    languageSelect.value = window.i18n.getCurrentLanguage();
+                }
+            }
+        });
+    </script>
 </body>
 </html>

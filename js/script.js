@@ -46,6 +46,11 @@ document.addEventListener('DOMContentLoaded', function() {
             applyTheme(event.target.value);
         });
     }
+    
+    // Initialize i18n if available
+    if (window.i18n) {
+        window.i18n.initLanguage();
+    }
     priceInput.addEventListener('input', handlePriceChange);
     downPaymentPercentInput.addEventListener('input', updateDownPaymentFromPercent);
     downPaymentAmountInput.addEventListener('input', updateDownPaymentFromAmount);
@@ -149,7 +154,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 function updateDownPaymentAmountLabelText() {
     // const selectedSymbol = currencySelect.value; // No longer needed here as symbol is in the unit span
-    downPaymentAmountLabel.textContent = "Down Payment"; // Keep label static
+    downPaymentAmountLabel.textContent = window.i18n ? window.i18n.getText('downPayment') : "Down Payment"; // Use i18n if available
     // If amount is already set, re-format it with new currency (optional)
     // This part might not be necessary if inputs are not reformatted live
     if (downPaymentAmountInput.value) {
@@ -270,7 +275,9 @@ function formatCurrency(amount) {
 function formatDate(monthsToAdd) {
     const date = new Date();
     date.setMonth(date.getMonth() + monthsToAdd);
-    return date.toLocaleDateString('en-US', { year: 'numeric', month: 'short' });
+    // Use browser's locale setting or fall back to en-US
+    const currentLanguage = window.i18n ? window.i18n.getCurrentLanguage() : 'en';
+    return date.toLocaleDateString(currentLanguage === 'en' ? 'en-US' : currentLanguage, { year: 'numeric', month: 'short' });
 }
 
 // Calculate mortgage
@@ -286,32 +293,32 @@ function calculateMortgage() {
 
     // Validate inputs
     if (isNaN(price) || price <= 0) {
-        showError('Please enter a valid property price.');
+        showError(window.i18n ? window.i18n.getText('errorInvalidPrice') : 'Please enter a valid property price.');
         return;
     }
     if (isNaN(downPaymentAmount) || downPaymentAmount < 0) {
-        showError('Please enter a valid down payment amount.');
+        showError(window.i18n ? window.i18n.getText('errorInvalidDownPayment') : 'Please enter a valid down payment amount.');
         return;
     }
     const totalAcquisitionCost = price + buyingFees + buyingTaxes;
     if (downPaymentAmount > totalAcquisitionCost) {
-        showError('Down payment cannot exceed total acquisition cost (price + fees + taxes).');
+        showError(window.i18n ? window.i18n.getText('errorDownPaymentExceedsCost') : 'Down payment cannot exceed total acquisition cost (price + fees + taxes).');
         return;
     }
     const downPaymentPercent = parseFloat(downPaymentPercentInput.value);
     if (isNaN(downPaymentPercent) || downPaymentPercent < 0 || downPaymentPercent > 100) {
-         showError('Please enter a valid down payment percentage (0-100).');
+         showError(window.i18n ? window.i18n.getText('errorInvalidDownPaymentPercent') : 'Please enter a valid down payment percentage (0-100).');
         return;
     }
     if (parseFloat(document.getElementById('interestRate').value) <=0 ){
-        showError('Please enter a valid interest rate.');
+        showError(window.i18n ? window.i18n.getText('errorInvalidInterestRate') : 'Please enter a valid interest rate.');
         return;
     }
 
     const loanAmount = totalAcquisitionCost - downPaymentAmount;
 
     if (loanAmount < 0) { // Should be caught by downPaymentAmount > price, but good to have
-        showError('Loan amount cannot be negative. Check price and down payment.');
+        showError(window.i18n ? window.i18n.getText('errorNegativeLoan') : 'Loan amount cannot be negative. Check price and down payment.');
         return;
     }
     if (loanAmount === 0 && totalAcquisitionCost > 0) { // Paid in full
@@ -319,7 +326,8 @@ function calculateMortgage() {
         updateSummary(price, buyingFees, buyingTaxes, downPaymentAmount, loanAmount, interestRate * 12 * 100, loanTerm / 12, 0, amortizationData);
         resultsDiv.style.display = 'block';
         summaryDiv.style.display = 'block';
-        amortizationBody.innerHTML = '<tr><td colspan="6" style="text-align:center;">Property paid in full with down payment.</td></tr>';
+        const paidInFullText = window.i18n ? window.i18n.getText('paidInFull') : 'Property paid in full with down payment.';
+        amortizationBody.innerHTML = `<tr><td colspan="6" style="text-align:center;">${paidInFullText}</td></tr>`;
         prevBtn.disabled = true;
         nextBtn.disabled = true;
         pageInfo.textContent = '';
@@ -327,7 +335,7 @@ function calculateMortgage() {
         return;
     }
      if (loanAmount === 0 && price === 0) {
-        showError('Property price cannot be zero if there is no loan.');
+        showError(window.i18n ? window.i18n.getText('errorZeroPrice') : 'Property price cannot be zero if there is no loan.');
         return;
     }
 
@@ -481,9 +489,17 @@ function updateAmortizationTable() {
     const totalCount = amortizationData.length;
 
     if (rowsPerPage === 0 || totalCount === 0) {
-        pageInfo.textContent = `Showing all ${totalCount} entries`;
+        if (window.i18n) {
+            pageInfo.textContent = `${window.i18n.getText('showingAll')} ${totalCount} ${window.i18n.getText('entries')}`;
+        } else {
+            pageInfo.textContent = `Showing all ${totalCount} entries`;
+        }
     } else {
-        pageInfo.textContent = `Showing ${startCount} to ${endCount} of ${totalCount} entries (Page ${currentPage} of ${totalPages})`;
+        if (window.i18n) {
+            pageInfo.textContent = `${window.i18n.getText('showing')} ${startCount} ${window.i18n.getText('to')} ${endCount} ${window.i18n.getText('of')} ${totalCount} ${window.i18n.getText('entries')} (${window.i18n.getText('page')} ${currentPage} ${window.i18n.getText('of')} ${totalPages})`;
+        } else {
+            pageInfo.textContent = `Showing ${startCount} to ${endCount} of ${totalCount} entries (Page ${currentPage} of ${totalPages})`;
+        }
     }
 }
 
