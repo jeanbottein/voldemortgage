@@ -24,7 +24,7 @@ const nextBtn = document.getElementById('nextBtn');
 const pageInfo = document.getElementById('pageInfo');
 
 // Theme switcher elements
-const themeButtons = document.querySelectorAll('#theme-selector-wrapper button');
+const themeSelect = document.getElementById('theme-select');
 
 // To prevent infinite loops during synchronization
 let isUpdatingDownPayment = false;
@@ -33,11 +33,11 @@ let isUpdatingDownPayment = false;
 document.addEventListener('DOMContentLoaded', function() {
     loadTheme(); // Load saved theme or system default
 
-    themeButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            applyTheme(button.dataset.theme);
+    if (themeSelect) {
+        themeSelect.addEventListener('change', (event) => {
+            applyTheme(event.target.value);
         });
-    });
+    }
     priceInput.addEventListener('input', handlePriceChange);
     downPaymentPercentInput.addEventListener('input', updateDownPaymentFromPercent);
     downPaymentAmountInput.addEventListener('input', updateDownPaymentFromAmount);
@@ -415,13 +415,9 @@ function applyTheme(theme) {
         document.body.classList.remove('dark-mode');
     }
 
-    themeButtons.forEach(button => {
-        if (button.dataset.theme === theme) {
-            button.classList.add('active');
-        } else {
-            button.classList.remove('active');
-        }
-    });
+    if (themeSelect) {
+        themeSelect.value = theme;
+    }
 
     // Save the user's explicit choice (light, dark, or system)
     localStorage.setItem('theme', theme);

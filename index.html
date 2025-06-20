@@ -8,20 +8,24 @@
 </head>
 <body>
     <div class="container">
-        <div id="currency-selector-wrapper">
-            <select id="currency" name="currency">
-                <option value="$">$</option>
-                <option value="€">€</option>
-                <option value="£">£</option>
-                <option value="¥">¥</option>
-                <option value="₹">₹</option>
-                <option value="§">§</option>
-            </select>
-        </div>
-        <div id="theme-selector-wrapper">
-            <button type="button" data-theme="light" title="Light Mode">☀️</button>
-            <button type="button" data-theme="dark" title="Dark Mode">🌙</button>
-            <button type="button" data-theme="system" title="System Preference" class="active">💻</button>
+        <div class="top-right-controls">
+            <div id="currency-selector-wrapper">
+                <select id="currency" name="currency" title="Select Currency">
+                    <option value="$">$</option>
+                    <option value="€">€</option>
+                    <option value="£">£</option>
+                    <option value="¥">¥</option>
+                    <option value="₹">₹</option>
+                    <option value="§">§</option>
+                </select>
+            </div>
+            <div id="theme-dropdown-wrapper">
+                <select id="theme-select" title="Select Theme">
+                    <option value="light">☼</option> <!-- U+263C -->
+                    <option value="dark">☾</option>  <!-- U+263E -->
+                    <option value="system">⚙</option> <!-- U+2699 -->
+                </select>
+            </div>
         </div>
         <h1>Mortgage Calculator</h1>
         

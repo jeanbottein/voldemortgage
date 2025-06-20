@@ -72,40 +72,29 @@ body.dark-mode {
     --active-theme-border: #6cb2eb; /* Lighter border for active theme in dark mode */
 }
 
-#theme-selector-wrapper {
+.top-right-controls {
     position: absolute;
-    top: 1.5rem; 
-    right: 7rem; /* Position it to the left of the currency selector, adjust as needed */
-    z-index: 10;
+    top: 1.5rem;
+    right: 1.5rem;
     display: flex;
-    gap: 0.3rem;
+    gap: 0.5rem;
 }
 
-#theme-selector-wrapper button {
-    background: none;
-    border: 1px solid transparent;
-    color: var(--primary-text-color); /* Use variable for icon color */
-    padding: 0.2rem 0.4rem;
-    font-size: 1.1rem; 
-    cursor: pointer;
+.top-right-controls select {
+    padding: 0.3rem 0.5rem;
+    font-size: 0.9rem; /* Consistent with general input/select */
+    line-height: 1.5;  /* Consistent line height for vertical rhythm */
+    width: auto;
+    background-color: var(--input-bg);
+    color: var(--text-color);
+    border: 1px solid var(--input-border);
     border-radius: 4px;
-    line-height: 1;
-    width: auto; /* Override general button width */
-    display: inline-flex; 
-    align-items: center;
-    justify-content: center;
-    transition: background-color 0.2s, border-color 0.2s;
+    cursor: pointer;
+    box-sizing: border-box;
+    /* Removed explicit height, display: inline-flex, and align-items: center from select itself */
 }
 
-#theme-selector-wrapper button:hover {
-    background-color: var(--input-border); /* Subtle hover, uses variable */
-    filter: none; 
-}
-
-#theme-selector-wrapper button.active {
-    border-color: var(--active-theme-border); /* Highlight active theme, uses variable */
-    background-color: var(--input-bg); /* Use a background consistent with inputs */
-}
+/* Removed .container > div[id$="-wrapper"] rule as Flexbox handles layout now */
 
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -194,7 +183,7 @@ button {
 }
 
 /* General page button hover */
-button:not(#theme-selector-wrapper button):hover {
+button:hover {
     filter: brightness(90%);
 }
 
@@ -267,28 +256,8 @@ tr:hover {
     margin: 0 1rem;
 }
 
-#currency-selector-wrapper {
-    position: absolute;
-    top: 1.5rem; /* Adjust to fit well with container padding */
-    right: 2rem; /* Adjust to fit well with container padding */
-    z-index: 10; /* Ensure it's above other elements */
-}
 
-#currency-selector-wrapper select {
-    padding: 0.3rem 0.5rem; 
-    font-size: 0.85rem;   
-    width: auto; 
-    /* Inherits background, color, border from general select styles which now use variables */
-}
 
-#theme-selector-wrapper {
-    position: absolute;
-    top: 1.5rem; 
-    right: 7rem; /* Position it to the left of the currency selector */
-    z-index: 10;
-    display: flex;
-    gap: 0.3rem;
-}
 
 #theme-selector-wrapper button {
     background: none;
