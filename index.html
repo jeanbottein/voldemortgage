@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mortgage Calculator</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Mortgage Calculator</h1>
+        
+        <div class="input-group">
+            <div class="form-group">
+                <label for="currency">Currency</label>
+                <select id="currency" name="currency">
+                    <option value="$">$ (Dollar)</option>
+                    <option value="€">€ (Euro)</option>
+                    <option value="£">£ (Pound)</option>
+                    <option value="¥">¥ (Yen)</option>
+                    <option value="₹">₹ (Rupee)</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="price">Property Price</label>
+                <input type="number" id="price" name="price" placeholder="E.g., 300000" min="0" step="1000" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="downPaymentPercent">Down Payment (%)</label>
+                <input type="number" id="downPaymentPercent" name="downPaymentPercent" placeholder="E.g., 20" step="0.1" min="0" max="100">
+            </div>
+        </div>
+        
+        <div class="input-group">
+            <div class="form-group">
+                <label for="downPaymentAmount" id="downPaymentAmountLabel">Down Payment (Amount)</label>
+                <input type="number" id="downPaymentAmount" name="downPaymentAmount" placeholder="E.g., 60000" step="100" min="0">
+            </div>
+            
+            <div class="form-group">
+                <label for="interestRate">Interest Rate (%)</label>
+                <input type="number" id="interestRate" name="interestRate" placeholder="E.g., 3.5" step="0.01" min="0" max="100" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="loanTerm">Loan Term (years)</label>
+                <select id="loanTerm" name="loanTerm">
+                    <option value="10">10 years</option>
+                    <option value="15">15 years</option>
+                    <option value="20">20 years</option>
+                    <option value="25">25 years</option>
+                    <option value="30" selected>30 years</option>
+                </select>
+            </div>
+        </div>
+        
+        <button id="calculateBtn">Calculate Mortgage</button>
+        
+        <div id="error" class="error"></div>
+        
+        <div class="summary" id="summary" style="display: none;">
+            <h3>Mortgage Summary</h3>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+                <div>
+                    <p><strong>Property Price:</strong> <span id="summaryPrice"></span></p>
+                    <p><strong>Down Payment:</strong> <span id="summaryDownPayment"></span></p>
+                    <p><strong>Loan Amount:</strong> <span id="summaryLoanAmount"></span></p>
+                </div>
+                <div>
+                    <p><strong>Interest Rate:</strong> <span id="summaryInterestRate"></span></p>
+                    <p><strong>Loan Term:</strong> <span id="summaryLoanTerm"></span></p>
+                    <p><strong>Monthly Payment:</strong> <span id="summaryMonthlyPayment"></span></p>
+                </div>
+                <div>
+                    <p><strong>Total Interest:</strong> <span id="summaryTotalInterest"></span></p>
+                    <p><strong>Total Cost:</strong> <span id="summaryTotalCost"></span></p>
+                    <p><strong>Pay-off Date:</strong> <span id="summaryPayoffDate"></span></p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="results" id="results" style="display: none;">
+            <h3>Amortization Schedule</h3>
+            <div style="margin: 1rem 0;">
+                <label for="pagination">Show rows per page: </label>
+                <select id="pagination" onchange="updatePagination()">
+                    <option value="12">12 (1 year)</option>
+                    <option value="24">24 (2 years)</option>
+                    <option value="60">60 (5 years)</option>
+                    <option value="120">120 (10 years)</option>
+                    <option value="0" selected>All</option>
+                </select>
+            </div>
+            <div style="overflow-x: auto;">
+                <table id="amortizationTable">
+                    <thead>
+                        <tr>
+                            <th>Month</th>
+                            <th>Payment</th>
+                            <th>Principal</th>
+                            <th>Interest</th>
+                            <th>Total Interest</th>
+                            <th>Remaining Balance</th>
+                        </tr>
+                    </thead>
+                    <tbody id="amortizationBody">
+                        <!-- Will be populated by JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+            <div style="margin-top: 1rem; text-align: center;" class="pagination-controls">
+                <button id="prevBtn" onclick="previousPage()" disabled>Previous</button>
+                <span id="pageInfo" class="pagination-info">Page 1</span>
+                <button id="nextBtn" onclick="nextPage()" disabled>Next</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/script.js" defer></script>
+</body>
+</html>
