@@ -353,6 +353,11 @@ tr:hover {
     transition: background-color 0.3s;
 }
 
+.summary ul {
+    list-style-type: none;
+    padding-left: 0; /* Remove default left padding for lists */
+}
+
 .error {
     color: var(--error-text-color);
     margin-top: 0.5rem;
