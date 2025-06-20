@@ -166,7 +166,9 @@ h3 {
 #downPaymentPercent,
 #downPaymentAmount,
 #interestRate,
-#loanTerm {
+#loanTerm,
+#buyingFees,
+#buyingTaxes {
     width: 14ch; /* Approx 10-12 digits wide */
     max-width: 100%; /* Ensure responsiveness */
     text-align: left;
@@ -184,7 +186,11 @@ h3 {
 #interestRate::-webkit-outer-spin-button,
 #interestRate::-webkit-inner-spin-button,
 #loanTerm::-webkit-outer-spin-button,
-#loanTerm::-webkit-inner-spin-button {
+#loanTerm::-webkit-inner-spin-button,
+#buyingFees::-webkit-outer-spin-button,
+#buyingFees::-webkit-inner-spin-button,
+#buyingTaxes::-webkit-outer-spin-button,
+#buyingTaxes::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0; /* Removes the space allocated for spinners */
 }

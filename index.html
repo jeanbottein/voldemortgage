@@ -73,18 +73,38 @@
                     <input type="number" id="loanTerm" name="loanTerm" value="30" step="1" min="1" required>
                 </div>
             </div>
+        
+            <div class="form-row">
+                <div class="form-label-wrapper">
+                    <label for="buyingFees">Buying Fees</label>
+                </div>
+                <div class="form-field-wrapper">
+                    <input type="number" id="buyingFees" name="buyingFees" value="0" step="any" placeholder="0">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-label-wrapper">
+                    <label for="buyingTaxes">Buying Taxes</label>
+                </div>
+                <div class="form-field-wrapper">
+                    <input type="number" id="buyingTaxes" name="buyingTaxes" value="0" step="any" placeholder="0">
+                </div>
+            </div>
         </div>
+        </div> <!-- This closes input-form-container -->
         
         <div id="error" class="error"></div>
         
         <div class="summary" id="summary" style="display: none;">
             <h3>Mortgage Summary</h3>
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
-                <div>
-                    <p><strong>Property Price:</strong> <span id="summaryPrice"></span></p>
-                    <p><strong>Down Payment:</strong> <span id="summaryDownPayment"></span></p>
-                    <p><strong>Loan Amount:</strong> <span id="summaryLoanAmount"></span></p>
-                </div>
+                <ul>
+                    <li>Property Price: <span id="summaryPrice"></span></li>
+                    <li>+ Buying Fees: <span id="summaryBuyingFees"></span></li>
+                    <li>+ Buying Taxes: <span id="summaryBuyingTaxes"></span></li>
+                    <li>- Down Payment: <span id="summaryDownPayment"></span></li>
+                    <li><strong>Total Loan Amount:</strong> <span id="summaryLoanAmount"></span></li>
+                </ul>
                 <div>
                     <p><strong>Interest Rate:</strong> <span id="summaryInterestRate"></span></p>
                     <p><strong>Loan Term:</strong> <span id="summaryLoanTerm"></span></p>

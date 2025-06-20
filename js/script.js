@@ -10,6 +10,8 @@ const downPaymentPercentInput = document.getElementById('downPaymentPercent');
 const downPaymentAmountInput = document.getElementById('downPaymentAmount');
 const downPaymentAmountLabel = document.getElementById('downPaymentAmountLabel');
 const currencySelect = document.getElementById('currency');
+const buyingFeesInput = document.getElementById('buyingFees');
+const buyingTaxesInput = document.getElementById('buyingTaxes');
 const interestRateInput = document.getElementById('interestRate');
 const loanTermSelect = document.getElementById('loanTerm');
 
@@ -43,6 +45,8 @@ document.addEventListener('DOMContentLoaded', function() {
     downPaymentAmountInput.addEventListener('input', updateDownPaymentFromAmount);
     interestRateInput.addEventListener('input', calculateMortgage);
     loanTermSelect.addEventListener('input', calculateMortgage);
+    buyingFeesInput.addEventListener('input', calculateMortgage);
+    buyingTaxesInput.addEventListener('input', calculateMortgage);
     currencySelect.addEventListener('change', () => {
         updateDownPaymentAmountLabelText();
         calculateMortgage(); // Always attempt to recalculate on currency change
@@ -56,6 +60,8 @@ document.addEventListener('DOMContentLoaded', function() {
     priceInput.value = '500000';
     downPaymentPercentInput.value = '15';
     document.getElementById('interestRate').value = '3.5'; // Set interest rate before functions that might use it
+    buyingFeesInput.value = '0';
+    buyingTaxesInput.value = '0';
     // loanTermSelect defaults via HTML 'selected' attribute
 
     // Calculate initial down payment amount from percent.
@@ -264,6 +270,8 @@ function calculateMortgage() {
     console.log('[CalcMortgage] Entered. Current interestRate.value:', document.getElementById('interestRate').value, 'Current downPaymentPercentInput.value:', document.getElementById('downPaymentPercent').value);
     // Get input values
     const price = parseFloat(priceInput.value);
+    const buyingFees = parseFloat(buyingFeesInput.value) || 0;
+    const buyingTaxes = parseFloat(buyingTaxesInput.value) || 0;
     const interestRate = parseFloat(document.getElementById('interestRate').value) / 100 / 12; // Monthly interest rate
     const loanTerm = parseInt(document.getElementById('loanTerm').value) * 12; // In months
     let downPaymentAmount = parseFloat(downPaymentAmountInput.value);
@@ -277,8 +285,9 @@ function calculateMortgage() {
         showError('Please enter a valid down payment amount.');
         return;
     }
-    if (downPaymentAmount > price) {
-        showError('Down payment cannot exceed property price.');
+    const totalAcquisitionCost = price + buyingFees + buyingTaxes;
+    if (downPaymentAmount > totalAcquisitionCost) {
+        showError('Down payment cannot exceed total acquisition cost (price + fees + taxes).');
         return;
     }
     const downPaymentPercent = parseFloat(downPaymentPercentInput.value);
@@ -291,15 +300,15 @@ function calculateMortgage() {
         return;
     }
 
-    const loanAmount = price - downPaymentAmount;
+    const loanAmount = totalAcquisitionCost - downPaymentAmount;
 
     if (loanAmount < 0) { // Should be caught by downPaymentAmount > price, but good to have
         showError('Loan amount cannot be negative. Check price and down payment.');
         return;
     }
-    if (loanAmount === 0 && price > 0) { // Paid in full
+    if (loanAmount === 0 && totalAcquisitionCost > 0) { // Paid in full
         amortizationData = [];
-        updateSummary(price, downPaymentAmount, loanAmount, interestRate * 12 * 100, loanTerm / 12, 0, amortizationData);
+        updateSummary(price, buyingFees, buyingTaxes, downPaymentAmount, loanAmount, interestRate * 12 * 100, loanTerm / 12, 0, amortizationData);
         resultsDiv.style.display = 'block';
         summaryDiv.style.display = 'block';
         amortizationBody.innerHTML = '<tr><td colspan="6" style="text-align:center;">Property paid in full with down payment.</td></tr>';
@@ -321,7 +330,7 @@ function calculateMortgage() {
     amortizationData = generateAmortizationSchedule(loanAmount, interestRate, monthlyPayment, loanTerm);
 
     // Update summary
-    updateSummary(price, downPaymentAmount, loanAmount, interestRate * 12 * 100, loanTerm / 12, monthlyPayment, amortizationData);
+    updateSummary(price, buyingFees, buyingTaxes, downPaymentAmount, loanAmount, interestRate * 12 * 100, loanTerm / 12, monthlyPayment, amortizationData);
 
     // Show results
     resultsDiv.style.display = 'block';
@@ -384,14 +393,17 @@ function generateAmortizationSchedule(principal, monthlyRate, monthlyPayment, te
 }
 
 // Update summary section
-function updateSummary(price, downPayment, loanAmount, annualRate, years, monthlyPayment, schedule) {
+function updateSummary(price, buyingFees, buyingTaxes, downPayment, loanAmount, annualRate, years, monthlyPayment, schedule) {
     const totalInterest = schedule.length > 0 ? schedule[schedule.length - 1].totalInterest : 0;
     const totalCost = price + totalInterest;
     const payoffDate = loanAmount > 0 && schedule.length > 0 ? formatDate(schedule.length) : 'N/A';
 
     document.getElementById('summaryPrice').textContent = formatCurrency(price);
+    document.getElementById('summaryBuyingFees').textContent = formatCurrency(buyingFees);
+    document.getElementById('summaryBuyingTaxes').textContent = formatCurrency(buyingTaxes);
+    const totalAcquisitionCostForDisplay = price + buyingFees + buyingTaxes;
     document.getElementById('summaryDownPayment').textContent = formatCurrency(downPayment) +
-        (price > 0 ? ` (${(downPayment / price * 100).toFixed(1)}%)` : '');
+        (totalAcquisitionCostForDisplay > 0 ? ` (${(downPayment / totalAcquisitionCostForDisplay * 100).toFixed(1)}%)` : '');
     document.getElementById('summaryLoanAmount').textContent = formatCurrency(loanAmount);
     document.getElementById('summaryInterestRate').textContent = annualRate.toFixed(2) + '%';
     document.getElementById('summaryLoanTerm').textContent = years + ' years (' + (years * 12) + ' months)';
