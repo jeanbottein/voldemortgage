@@ -10,8 +10,10 @@ const downPaymentPercentInput = document.getElementById('downPaymentPercent');
 const downPaymentAmountInput = document.getElementById('downPaymentAmount');
 const downPaymentAmountLabel = document.getElementById('downPaymentAmountLabel');
 const currencySelect = document.getElementById('currency');
+const interestRateInput = document.getElementById('interestRate');
+const loanTermSelect = document.getElementById('loanTerm');
 
-const calculateBtn = document.getElementById('calculateBtn');
+const calculateBtn = document.getElementById('calculateBtn'); // This will be null, but kept for structure if button is re-added. Consider removing if button is permanently gone.
 const errorElement = document.getElementById('error');
 const resultsDiv = document.getElementById('results');
 const summaryDiv = document.getElementById('summary');
@@ -21,35 +23,51 @@ const prevBtn = document.getElementById('prevBtn');
 const nextBtn = document.getElementById('nextBtn');
 const pageInfo = document.getElementById('pageInfo');
 
+// Theme switcher elements
+const themeButtons = document.querySelectorAll('#theme-selector-wrapper button');
+
 // To prevent infinite loops during synchronization
 let isUpdatingDownPayment = false;
 
 // Event Listeners
 document.addEventListener('DOMContentLoaded', function() {
+    loadTheme(); // Load saved theme or system default
+
+    themeButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            applyTheme(button.dataset.theme);
+        });
+    });
     priceInput.addEventListener('input', handlePriceChange);
     downPaymentPercentInput.addEventListener('input', updateDownPaymentFromPercent);
     downPaymentAmountInput.addEventListener('input', updateDownPaymentFromAmount);
-    currencySelect.addEventListener('change', updateDownPaymentAmountLabelText);
-    calculateBtn.addEventListener('click', calculateMortgage);
+    interestRateInput.addEventListener('input', calculateMortgage);
+    loanTermSelect.addEventListener('change', calculateMortgage);
+    currencySelect.addEventListener('change', () => {
+        updateDownPaymentAmountLabelText();
+        calculateMortgage(); // Always attempt to recalculate on currency change
+    });
+    // calculateBtn.addEventListener('click', calculateMortgage); // Button no longer primary trigger
     
     // Initialize
     updateDownPaymentAmountLabelText();
     
     // Set default values for testing
-    priceInput.value = '300000';
-    downPaymentPercentInput.value = '20';
+    priceInput.value = '500000';
+    downPaymentPercentInput.value = '15';
     updateDownPaymentFromPercent(); // Calculate initial amount from percent
     document.getElementById('interestRate').value = '3.5';
 });
 
 function updateDownPaymentAmountLabelText() {
-    downPaymentAmountLabel.textContent = `Down Payment (${currencySelect.value})`;
+    const selectedSymbol = currencySelect.value;
+    downPaymentAmountLabel.textContent = `Down Payment (${selectedSymbol})`;
     // If amount is already set, re-format it with new currency (optional)
+    // This part might not be necessary if inputs are not reformatted live
     if (downPaymentAmountInput.value) {
         const amount = parseFloat(downPaymentAmountInput.value);
         if (!isNaN(amount)) {
-            // This might be slightly confusing if user is typing, so use with caution
-            // downPaymentAmountInput.value = amount.toFixed(2); // Just ensure it's a number, formatCurrency will handle display
+            // downPaymentAmountInput.value = Math.round(amount); // Keep internal value precise and rounded
         }
     }
 }
@@ -65,7 +83,7 @@ function handlePriceChange() {
     if (!isNaN(percent) && downPaymentPercentInput.value.trim() !== '') {
         // If percent is set, update amount
         const newAmount = (price * percent) / 100;
-        downPaymentAmountInput.value = newAmount.toFixed(2);
+        downPaymentAmountInput.value = Math.round(newAmount);
     } else if (!isNaN(amount) && downPaymentAmountInput.value.trim() !== '') {
         // If amount is set (and percent is not), update percent
         if (price > 0) {
@@ -79,6 +97,7 @@ function handlePriceChange() {
     downPaymentAmountInput.max = price;
 
     isUpdatingDownPayment = false;
+    calculateMortgage(); // Trigger recalculation
 }
 
 function updateDownPaymentFromPercent() {
@@ -92,11 +111,12 @@ function updateDownPaymentFromPercent() {
         if (percent < 0) downPaymentPercentInput.value = '0';
         if (percent > 100) downPaymentPercentInput.value = '100';
         const newAmount = (price * parseFloat(downPaymentPercentInput.value)) / 100;
-        downPaymentAmountInput.value = newAmount.toFixed(2);
+        downPaymentAmountInput.value = Math.round(newAmount);
     } else {
         downPaymentAmountInput.value = '';
     }
     isUpdatingDownPayment = false;
+    calculateMortgage(); // Trigger recalculation
 }
 
 function updateDownPaymentFromAmount() {
@@ -108,7 +128,7 @@ function updateDownPaymentFromAmount() {
 
     if (!isNaN(amount)) {
         if (amount < 0) downPaymentAmountInput.value = '0';
-        if (price > 0 && amount > price) downPaymentAmountInput.value = price.toFixed(2);
+        if (price > 0 && amount > price) downPaymentAmountInput.value = Math.round(price);
         
         if (price > 0) {
             const newPercent = (parseFloat(downPaymentAmountInput.value) / price) * 100;
@@ -120,17 +140,23 @@ function updateDownPaymentFromAmount() {
         downPaymentPercentInput.value = '';
     }
     isUpdatingDownPayment = false;
+    calculateMortgage(); // Trigger recalculation
 }
 
 // Format currency
 function formatCurrency(amount) {
-    const currency = currencySelect.value;
-    return new Intl.NumberFormat('en-US', {
-        style: 'currency',
-        currency: 'USD', // Base for formatting, symbol replaced by selected currency
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2
-    }).format(amount).replace(/^\D+/, currency); // Replace only the currency symbol at the beginning
+    const selectedSymbol = currencySelect.value;
+    const roundedAmount = Math.round(amount); // Round to nearest whole number
+
+    // Format the number using browser's default locale for number parts (e.g., thousand separators)
+    const formattedNumber = new Intl.NumberFormat(undefined, {
+        style: 'decimal', // Just the number, no currency styling from Intl
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 0
+    }).format(roundedAmount);
+
+    // Append the selected symbol
+    return `${formattedNumber} ${selectedSymbol}`;
 }
 
 // Format date
@@ -374,6 +400,45 @@ function showError(message) {
         errorElement.style.display = 'none';
     }, 5000);
 }
+
+/** THEME SWITCHER LOGIC **/
+
+function applyTheme(theme) {
+    let effectiveTheme = theme;
+    if (theme === 'system') {
+        effectiveTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    }
+
+    if (effectiveTheme === 'dark') {
+        document.body.classList.add('dark-mode');
+    } else {
+        document.body.classList.remove('dark-mode');
+    }
+
+    themeButtons.forEach(button => {
+        if (button.dataset.theme === theme) {
+            button.classList.add('active');
+        } else {
+            button.classList.remove('active');
+        }
+    });
+
+    // Save the user's explicit choice (light, dark, or system)
+    localStorage.setItem('theme', theme);
+}
+
+function loadTheme() {
+    const savedTheme = localStorage.getItem('theme') || 'system';
+    applyTheme(savedTheme);
+}
+
+// Listen for OS theme changes if 'system' is selected
+window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+    const currentThemeSetting = localStorage.getItem('theme');
+    if (currentThemeSetting === 'system') {
+        applyTheme('system');
+    }
+});
 
 // Make functions available in global scope for HTML event handlers
 window.updatePagination = updatePagination;

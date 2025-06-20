@@ -8,19 +8,24 @@
 </head>
 <body>
     <div class="container">
+        <div id="currency-selector-wrapper">
+            <select id="currency" name="currency">
+                <option value="$">$</option>
+                <option value="€">€</option>
+                <option value="£">£</option>
+                <option value="¥">¥</option>
+                <option value="₹">₹</option>
+                <option value="§">§</option>
+            </select>
+        </div>
+        <div id="theme-selector-wrapper">
+            <button type="button" data-theme="light" title="Light Mode">☀️</button>
+            <button type="button" data-theme="dark" title="Dark Mode">🌙</button>
+            <button type="button" data-theme="system" title="System Preference" class="active">💻</button>
+        </div>
         <h1>Mortgage Calculator</h1>
         
         <div class="input-group">
-            <div class="form-group">
-                <label for="currency">Currency</label>
-                <select id="currency" name="currency">
-                    <option value="$">$ (Dollar)</option>
-                    <option value="€">€ (Euro)</option>
-                    <option value="£">£ (Pound)</option>
-                    <option value="¥">¥ (Yen)</option>
-                    <option value="₹">₹ (Rupee)</option>
-                </select>
-            </div>
             
             <div class="form-group">
                 <label for="price">Property Price</label>
@@ -55,8 +60,6 @@
                 </select>
             </div>
         </div>
-        
-        <button id="calculateBtn">Calculate Mortgage</button>
         
         <div id="error" class="error"></div>
         
