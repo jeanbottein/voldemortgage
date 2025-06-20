@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', function() {
     downPaymentPercentInput.addEventListener('input', updateDownPaymentFromPercent);
     downPaymentAmountInput.addEventListener('input', updateDownPaymentFromAmount);
     interestRateInput.addEventListener('input', calculateMortgage);
-    loanTermSelect.addEventListener('change', calculateMortgage);
+    loanTermSelect.addEventListener('input', calculateMortgage);
     currencySelect.addEventListener('change', () => {
         updateDownPaymentAmountLabelText();
         calculateMortgage(); // Always attempt to recalculate on currency change
