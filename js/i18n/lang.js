@@ -70,8 +70,77 @@ const languages = {
         'errorNegativeLoan': 'Loan amount cannot be negative. Check price and down payment.',
         'errorZeroPrice': 'Property price cannot be zero if there is no loan.',
     },
+    // French language
+    'fr': {
+        // Page title
+        'title': 'Calculatrice Hypothécaire',
+        
+        // Form labels
+        'propertyPrice': 'Prix de la Propriété',
+        'downPayment': 'Acompte',
+        'interestRate': "Taux d'Intérêt",
+        'loanTerm': 'Durée du Prêt',
+        'buyingFees': "Frais d'Achat",
+        'buyingTaxes': "Taxes d'Achat",
+        
+        // Units
+        'years': 'ans',
+        'percentage': '%',
+        
+        // Table headers
+        'month': 'Mois',
+        'payment': 'Paiement',
+        'principal': 'Principal',
+        'interest': 'Intérêt',
+        'totalInterest': 'Intérêt Total',
+        'remainingBalance': 'Solde Restant',
+        
+        // Pagination
+        'showRowsPerPage': 'Afficher lignes par page:',
+        'previous': 'Précédent',
+        'next': 'Suivant',
+        'page': 'Page',
+        'of': 'sur',
+        'showing': 'Affichage',
+        'to': 'à',
+        'entries': 'entrées',
+        'showingAll': 'Affichage de toutes les',
+        
+        // Options for pagination
+        'oneYear': '12 (1 an)',
+        'twoYears': '24 (2 ans)',
+        'fiveYears': '60 (5 ans)',
+        'tenYears': '120 (10 ans)',
+        'all': 'Tout',
+        
+        // Summary section
+        'mortgageSummary': 'Résumé Hypothécaire',
+        'summaryPrice': 'Prix de la Propriété:',
+        'summaryBuyingFees': '+ Frais d\'Achat:',
+        'summaryBuyingTaxes': '+ Taxes d\'Achat:',
+        'summaryDownPayment': '- Acompte:',
+        'summaryLoanAmount': 'Montant Total du Prêt:',
+        'summaryInterestRate': 'Taux d\'Intérêt:',
+        'summaryLoanTerm': 'Durée du Prêt:',
+        'summaryMonthlyPayment': 'Paiement Mensuel:',
+        'summaryTotalInterest': 'Intérêt Total:',
+        'summaryTotalCost': 'Coût Total:',
+        'summaryPayoffDate': 'Date de Remboursement:',
+        
+        // Amortization
+        'amortizationSchedule': 'Tableau d\'Amortissement',
+        'paidInFull': 'Propriété payée intégralement avec l\'acompte.',
+        
+        // Error messages
+        'errorInvalidPrice': 'Veuillez entrer un prix de propriété valide.',
+        'errorInvalidDownPayment': 'Veuillez entrer un montant d\'acompte valide.',
+        'errorDownPaymentExceedsCost': 'L\'acompte ne peut pas dépasser le coût total d\'acquisition (prix + frais + taxes).',
+        'errorInvalidDownPaymentPercent': 'Veuillez entrer un pourcentage d\'acompte valide (0-100).',
+        'errorInvalidInterestRate': 'Veuillez entrer un taux d\'intérêt valide.',
+        'errorNegativeLoan': 'Le montant du prêt ne peut pas être négatif. Vérifiez le prix et l\'acompte.',
+        'errorZeroPrice': 'Le prix de la propriété ne peut pas être zéro s\'il n\'y a pas de prêt.',
+    },
     // Add more languages here in the future
-    // 'fr': { ... },
     // 'es': { ... },
 };
 
