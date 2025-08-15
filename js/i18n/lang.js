@@ -12,6 +12,7 @@ const languages = {
         'loanTerm': 'loan term',
         'buyingFees': 'buying fees',
         'buyingTaxes': 'buying taxes',
+        'firstPaymentDate': 'first payment date',
         
         // Units
         'years': 'years',
@@ -82,6 +83,7 @@ const languages = {
         'loanTerm': 'durée du prêt',
         'buyingFees': "frais d'achat",
         'buyingTaxes': "taxes d'achat",
+        'firstPaymentDate': 'date du premier paiement',
         
         // Units
         'years': 'ans',

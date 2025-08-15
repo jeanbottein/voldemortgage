@@ -105,66 +105,72 @@
                     <span class="input-unit" id="buyingTaxesUnit">$</span>
                 </div>
             </div>
+            
+            <div class="form-row">
+                <div class="form-label-wrapper">
+                    <label for="firstPaymentDate" data-i18n="firstPaymentDate">First Payment Date</label>
+                </div>
+                <div class="form-field-wrapper">
+                    <input type="month" id="firstPaymentDate" name="firstPaymentDate" class="date-input">
+                </div>
+            </div>
             </div> <!-- This closes input-form-container -->
             
-            <div class="summary" id="summary" style="display: block;">
-            <h3 data-i18n="mortgageSummary">Mortgage Summary</h3>
-            <div style="overflow-x: auto;">
-                <table class="summary-table">
-                    <tbody>
-                        <tr>
-                            <td data-i18n="summaryPrice">Property Price:</td>
-                            <td id="summaryPrice"></td>
-                        </tr>
-                        <tr>
-                            <td data-i18n="summaryBuyingFees">+ Buying Fees:</td>
-                            <td id="summaryBuyingFees"></td>
-                        </tr>
-                        <tr>
-                            <td data-i18n="summaryBuyingTaxes">+ Buying Taxes:</td>
-                            <td id="summaryBuyingTaxes"></td>
-                        </tr>
-                        <tr>
-                            <td data-i18n="summaryDownPayment">- Down Payment:</td>
-                            <td id="summaryDownPayment"></td>
-                        </tr>
-                        <tr class="total-row">
-                            <td><strong data-i18n="summaryLoanAmount">Total Loan Amount:</strong></td>
-                            <td><strong id="summaryLoanAmount"></strong></td>
-                        </tr>
-                        <tr class="spacer-row">
-                            <td colspan="2"></td>
-                        </tr>
-                        <tr>
-                            <td><strong data-i18n="summaryInterestRate">Interest Rate:</strong></td>
-                            <td><strong id="summaryInterestRate"></strong></td>
-                        </tr>
-                        <tr>
-                            <td><strong data-i18n="summaryLoanTerm">Loan Term:</strong></td>
-                            <td><strong id="summaryLoanTerm"></strong></td>
-                        </tr>
-                        <tr class="highlight-row">
-                            <td><strong data-i18n="summaryMonthlyPayment">Monthly Payment:</strong></td>
-                            <td><strong id="summaryMonthlyPayment"></strong></td>
-                        </tr>
-                        <tr class="spacer-row">
-                            <td colspan="2"></td>
-                        </tr>
-                        <tr>
-                            <td><strong data-i18n="summaryTotalInterest">Total Interest:</strong></td>
-                            <td><strong id="summaryTotalInterest"></strong></td>
-                        </tr>
-                        <tr>
-                            <td><strong data-i18n="summaryTotalCost">Total Cost:</strong></td>
-                            <td><strong id="summaryTotalCost"></strong></td>
-                        </tr>
-                        <tr>
-                            <td><strong data-i18n="summaryPayoffDate">Pay-off Date:</strong></td>
-                            <td><strong id="summaryPayoffDate"></strong></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+            <div class="info-section" id="summary" style="display: block;">
+                <!-- Hidden elements for JavaScript compatibility -->
+                <div style="display: none;">
+                    <span id="summaryPrice"></span>
+                    <span id="summaryBuyingFees"></span>
+                    <span id="summaryBuyingTaxes"></span>
+                    <span id="summaryDownPayment"></span>
+                    <span id="summaryInterestRate"></span>
+                    <span id="summaryLoanTerm"></span>
+                </div>
+                
+                <div class="info-row">
+                    <div class="info-label-wrapper">
+                        <label data-i18n="summaryLoanAmount">Total Loan Amount</label>
+                    </div>
+                    <div class="info-field-wrapper">
+                        <div class="info-display" id="summaryLoanAmount"></div>
+                    </div>
+                </div>
+                
+                <div class="info-row">
+                    <div class="info-label-wrapper">
+                        <label data-i18n="summaryMonthlyPayment">Monthly Payment</label>
+                    </div>
+                    <div class="info-field-wrapper">
+                        <div class="info-display" id="summaryMonthlyPayment"></div>
+                    </div>
+                </div>
+                
+                <div class="info-row">
+                    <div class="info-label-wrapper">
+                        <label data-i18n="summaryTotalInterest">Total Interest</label>
+                    </div>
+                    <div class="info-field-wrapper">
+                        <div class="info-display" id="summaryTotalInterest"></div>
+                    </div>
+                </div>
+                
+                <div class="info-row">
+                    <div class="info-label-wrapper">
+                        <label data-i18n="summaryTotalCost">Total Cost</label>
+                    </div>
+                    <div class="info-field-wrapper">
+                        <div class="info-display" id="summaryTotalCost"></div>
+                    </div>
+                </div>
+                
+                <div class="info-row">
+                    <div class="info-label-wrapper">
+                        <label data-i18n="summaryPayoffDate">Pay-off Date</label>
+                    </div>
+                    <div class="info-field-wrapper">
+                        <div class="info-display" id="summaryPayoffDate"></div>
+                    </div>
+                </div>
         </div>
         </div> <!-- This closes main-content -->
         
@@ -175,11 +181,11 @@
             <div style="margin: 1rem 0;">
                 <label for="pagination" data-i18n="showRowsPerPage">Show rows per page: </label>
                 <select id="pagination" onchange="updatePagination()">
-                    <option value="12" data-i18n="oneYear">12 (1 year)</option>
+                    <option value="12" selected data-i18n="oneYear">12 (1 year)</option>
                     <option value="24" data-i18n="twoYears">24 (2 years)</option>
                     <option value="60" data-i18n="fiveYears">60 (5 years)</option>
                     <option value="120" data-i18n="tenYears">120 (10 years)</option>
-                    <option value="0" selected data-i18n="all">All</option>
+                    <option value="0" data-i18n="all">All</option>
                 </select>
             </div>
             <div style="overflow-x: auto;">
@@ -225,6 +231,16 @@
                     // Set to current language
                     languageSelect.value = window.i18n.getCurrentLanguage();
                 }
+            }
+            
+            // Set default first payment date to next month
+            const firstPaymentDateInput = document.getElementById('firstPaymentDate');
+            if (firstPaymentDateInput) {
+                const nextMonth = new Date();
+                nextMonth.setMonth(nextMonth.getMonth() + 1);
+                const year = nextMonth.getFullYear();
+                const month = String(nextMonth.getMonth() + 1).padStart(2, '0');
+                firstPaymentDateInput.value = `${year}-${month}`;
             }
             
             // Force initial calculation after a short delay to ensure all scripts are loaded

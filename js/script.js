@@ -58,6 +58,7 @@ document.addEventListener('DOMContentLoaded', function() {
     loanTermSelect.addEventListener('input', calculateMortgage);
     buyingFeesInput.addEventListener('input', calculateMortgage);
     buyingTaxesInput.addEventListener('input', calculateMortgage);
+    document.getElementById('firstPaymentDate').addEventListener('input', calculateMortgage);
     currencySelect.addEventListener('change', () => {
         updateAllCurrencyUnitSpans(currencySelect.value);
         updateDownPaymentAmountLabelText(); // Label text itself might not need to change now
@@ -273,11 +274,24 @@ function formatCurrency(amount) {
 
 // Format date
 function formatDate(monthsToAdd) {
-    const date = new Date();
-    date.setMonth(date.getMonth() + monthsToAdd);
+    const firstPaymentDateInput = document.getElementById('firstPaymentDate');
+    let startDate = new Date();
+    
+    if (firstPaymentDateInput && firstPaymentDateInput.value) {
+        // Parse the month input value (YYYY-MM format)
+        const [year, month] = firstPaymentDateInput.value.split('-');
+        startDate = new Date(parseInt(year), parseInt(month) - 1, 1);
+    } else {
+        // Default to next month if no date is set
+        startDate.setMonth(startDate.getMonth() + 1);
+    }
+    
+    // Add the specified number of months
+    startDate.setMonth(startDate.getMonth() + monthsToAdd - 1);
+    
     // Use browser's locale setting or fall back to en-US
     const currentLanguage = window.i18n ? window.i18n.getCurrentLanguage() : 'en';
-    return date.toLocaleDateString(currentLanguage === 'en' ? 'en-US' : currentLanguage, { year: 'numeric', month: 'short' });
+    return startDate.toLocaleDateString(currentLanguage === 'en' ? 'en-US' : currentLanguage, { year: 'numeric', month: 'short' });
 }
 
 // Calculate mortgage

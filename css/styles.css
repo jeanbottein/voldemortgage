@@ -136,6 +136,62 @@ h3 {
     align-items: flex-start;
 }
 
+/* Info Section Styles */
+.info-section {
+    flex: 1;
+    margin-top: 0;
+    padding: 1.5rem;
+    background-color: var(--summary-bg);
+    border-radius: 8px;
+    transition: background-color 0.3s;
+    min-width: 300px;
+}
+
+.info-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.info-label-wrapper {
+    flex: 0 0 180px;
+    text-align: right;
+    padding-right: 1rem;
+    box-sizing: border-box;
+}
+
+.info-label-wrapper label {
+    display: block;
+    margin-bottom: 0;
+    font-weight: 500;
+    color: var(--primary-text-color);
+    transition: color 0.3s;
+}
+
+.info-field-wrapper {
+    flex: 1;
+    display: flex;
+    align-items: center;
+}
+
+.info-display {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid var(--input-border);
+    background-color: var(--input-bg);
+    color: var(--text-color);
+    border-radius: 4px;
+    font-size: 0.9rem;
+    box-sizing: border-box;
+    transition: background-color 0.3s, border-color 0.3s, color 0.3s;
+    font-family: 'Courier New', monospace;
+    text-align: right;
+    min-height: 2.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
 /* New Form Layout Styles */
 .input-form-container {
     flex: 1;
@@ -186,7 +242,8 @@ h3 {
 #interestRate,
 #loanTerm,
 #buyingFees,
-#buyingTaxes {
+#buyingTaxes,
+#firstPaymentDate {
     width: 14ch; /* Approx 10-12 digits wide */
     max-width: 100%; /* Ensure responsiveness */
     text-align: left;
@@ -490,16 +547,16 @@ tr:hover {
         margin-bottom: 1rem;
     }
     
-    .summary {
+    .info-section {
         min-width: auto;
     }
     
-    .form-row {
+    .form-row, .info-row {
         flex-direction: column;
         align-items: stretch;
     }
     
-    .form-label-wrapper {
+    .form-label-wrapper, .info-label-wrapper {
         flex: none;
         text-align: left;
         padding-right: 0;
