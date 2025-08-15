@@ -35,7 +35,8 @@
             </div>
         </div>
         <h1 data-i18n="title">Mortgage Calculator</h1>
-        <div class="input-form-container">
+        <div class="main-content">
+            <div class="input-form-container">
             <div class="form-row">
                 <div class="form-label-wrapper">
                     <label for="price" data-i18n="propertyPrice">Property Price</label>
@@ -104,12 +105,9 @@
                     <span class="input-unit" id="buyingTaxesUnit">$</span>
                 </div>
             </div>
-        </div>
-        </div> <!-- This closes input-form-container -->
-        
-        <div id="error" class="error"></div>
-        
-        <div class="summary" id="summary" style="display: none;">
+            </div> <!-- This closes input-form-container -->
+            
+            <div class="summary" id="summary" style="display: block;">
             <h3 data-i18n="mortgageSummary">Mortgage Summary</h3>
             <div style="overflow-x: auto;">
                 <table class="summary-table">
@@ -168,6 +166,9 @@
                 </table>
             </div>
         </div>
+        </div> <!-- This closes main-content -->
+        
+        <div id="error" class="error"></div>
         
         <div class="results" id="results" style="display: none;">
             <h3 data-i18n="amortizationSchedule">Amortization Schedule</h3>
@@ -225,6 +226,13 @@
                     languageSelect.value = window.i18n.getCurrentLanguage();
                 }
             }
+            
+            // Force initial calculation after a short delay to ensure all scripts are loaded
+            setTimeout(function() {
+                if (typeof calculateMortgage === 'function') {
+                    calculateMortgage();
+                }
+            }, 100);
         });
     </script>
 </body>

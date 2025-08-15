@@ -129,13 +129,18 @@ h3 {
     transition: color 0.3s;
 }
 
+/* Main Content Layout */
+.main-content {
+    display: flex;
+    gap: 2rem;
+    align-items: flex-start;
+}
+
 /* New Form Layout Styles */
 .input-form-container {
-    /* width: 50%; Occupy left half, adjust as needed - Removed */
-    /* float: left; - Removed */
-    /* padding-right: 2rem; Space for future graphics - Removed */
+    flex: 1;
     box-sizing: border-box;
-    margin-bottom: 2rem; /* Space below the form */
+    margin-bottom: 0; /* Remove bottom margin since we're side by side */
 }
 
 .form-row {
@@ -359,11 +364,13 @@ tr:hover {
 }
 
 .summary {
-    margin-top: 2rem;
+    flex: 1;
+    margin-top: 0;
     padding: 1.5rem;
     background-color: var(--summary-bg);
     border-radius: 8px;
     transition: background-color 0.3s;
+    min-width: 300px;
 }
 
 .summary ul {
@@ -474,12 +481,29 @@ tr:hover {
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
-    .input-group {
-        grid-template-columns: 1fr;
+    .main-content {
+        flex-direction: column;
+        gap: 1rem;
     }
     
-    .summary > div {
-        grid-template-columns: 1fr;
+    .input-form-container {
+        margin-bottom: 1rem;
+    }
+    
+    .summary {
+        min-width: auto;
+    }
+    
+    .form-row {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .form-label-wrapper {
+        flex: none;
+        text-align: left;
+        padding-right: 0;
+        margin-bottom: 0.5rem;
     }
     
     .pagination-controls {
