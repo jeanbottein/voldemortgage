@@ -111,24 +111,61 @@
         
         <div class="summary" id="summary" style="display: none;">
             <h3 data-i18n="mortgageSummary">Mortgage Summary</h3>
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
-                <ul>
-                    <li><span data-i18n="summaryPrice">Property Price:</span> <span id="summaryPrice"></span></li>
-                    <li><span data-i18n="summaryBuyingFees">+ Buying Fees:</span> <span id="summaryBuyingFees"></span></li>
-                    <li><span data-i18n="summaryBuyingTaxes">+ Buying Taxes:</span> <span id="summaryBuyingTaxes"></span></li>
-                    <li><span data-i18n="summaryDownPayment">- Down Payment:</span> <span id="summaryDownPayment"></span></li>
-                    <li><strong data-i18n="summaryLoanAmount">Total Loan Amount:</strong> <span id="summaryLoanAmount"></span></li>
-                </ul>
-                <div>
-                    <p><strong data-i18n="summaryInterestRate">Interest Rate:</strong> <span id="summaryInterestRate"></span></p>
-                    <p><strong data-i18n="summaryLoanTerm">Loan Term:</strong> <span id="summaryLoanTerm"></span></p>
-                    <p><strong data-i18n="summaryMonthlyPayment">Monthly Payment:</strong> <span id="summaryMonthlyPayment"></span></p>
-                </div>
-                <div>
-                    <p><strong data-i18n="summaryTotalInterest">Total Interest:</strong> <span id="summaryTotalInterest"></span></p>
-                    <p><strong data-i18n="summaryTotalCost">Total Cost:</strong> <span id="summaryTotalCost"></span></p>
-                    <p><strong data-i18n="summaryPayoffDate">Pay-off Date:</strong> <span id="summaryPayoffDate"></span></p>
-                </div>
+            <div style="overflow-x: auto;">
+                <table class="summary-table">
+                    <tbody>
+                        <tr>
+                            <td data-i18n="summaryPrice">Property Price:</td>
+                            <td id="summaryPrice"></td>
+                        </tr>
+                        <tr>
+                            <td data-i18n="summaryBuyingFees">+ Buying Fees:</td>
+                            <td id="summaryBuyingFees"></td>
+                        </tr>
+                        <tr>
+                            <td data-i18n="summaryBuyingTaxes">+ Buying Taxes:</td>
+                            <td id="summaryBuyingTaxes"></td>
+                        </tr>
+                        <tr>
+                            <td data-i18n="summaryDownPayment">- Down Payment:</td>
+                            <td id="summaryDownPayment"></td>
+                        </tr>
+                        <tr class="total-row">
+                            <td><strong data-i18n="summaryLoanAmount">Total Loan Amount:</strong></td>
+                            <td><strong id="summaryLoanAmount"></strong></td>
+                        </tr>
+                        <tr class="spacer-row">
+                            <td colspan="2"></td>
+                        </tr>
+                        <tr>
+                            <td><strong data-i18n="summaryInterestRate">Interest Rate:</strong></td>
+                            <td><strong id="summaryInterestRate"></strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong data-i18n="summaryLoanTerm">Loan Term:</strong></td>
+                            <td><strong id="summaryLoanTerm"></strong></td>
+                        </tr>
+                        <tr class="highlight-row">
+                            <td><strong data-i18n="summaryMonthlyPayment">Monthly Payment:</strong></td>
+                            <td><strong id="summaryMonthlyPayment"></strong></td>
+                        </tr>
+                        <tr class="spacer-row">
+                            <td colspan="2"></td>
+                        </tr>
+                        <tr>
+                            <td><strong data-i18n="summaryTotalInterest">Total Interest:</strong></td>
+                            <td><strong id="summaryTotalInterest"></strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong data-i18n="summaryTotalCost">Total Cost:</strong></td>
+                            <td><strong id="summaryTotalCost"></strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong data-i18n="summaryPayoffDate">Pay-off Date:</strong></td>
+                            <td><strong id="summaryPayoffDate"></strong></td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
         

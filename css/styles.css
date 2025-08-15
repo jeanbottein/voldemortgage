@@ -371,6 +371,54 @@ tr:hover {
     padding-left: 0; /* Remove default left padding for lists */
 }
 
+/* Summary Table Styles */
+.summary-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 0;
+    background-color: var(--container-bg);
+}
+
+.summary-table td {
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid var(--input-border);
+    vertical-align: middle;
+}
+
+.summary-table td:first-child {
+    font-weight: 500;
+    color: var(--primary-text-color);
+    width: 50%;
+}
+
+.summary-table td:last-child {
+    text-align: right;
+    font-family: 'Courier New', monospace;
+    color: var(--secondary-text-color);
+}
+
+.summary-table .total-row td {
+    border-top: 2px solid var(--input-border);
+    border-bottom: 2px solid var(--input-border);
+    background-color: var(--table-header-bg);
+    font-size: 1.1em;
+}
+
+.summary-table .highlight-row td {
+    background-color: var(--table-header-bg);
+    font-size: 1.1em;
+    color: var(--primary-text-color);
+}
+
+.summary-table .spacer-row td {
+    padding: 0.25rem;
+    border-bottom: none;
+}
+
+.summary-table tr:hover td {
+    background-color: var(--table-row-hover-bg);
+}
+
 .error {
     color: var(--error-text-color);
     margin-top: 0.5rem;
