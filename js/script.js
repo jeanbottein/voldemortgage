@@ -15,6 +15,13 @@ const buyingTaxesInput = document.getElementById('buyingTaxes');
 const interestRateInput = document.getElementById('interestRate');
 const loanTermSelect = document.getElementById('loanTerm');
 
+// Variables section elements
+const monthlyUtilitiesInput = document.getElementById('monthlyUtilities');
+const monthlyInsuranceInput = document.getElementById('monthlyInsurance');
+const monthlyTaxesInput = document.getElementById('monthlyTaxes');
+const inflationRateInput = document.getElementById('inflationRate');
+const realEstateInflationRateInput = document.getElementById('realEstateInflationRate');
+
 const calculateBtn = document.getElementById('calculateBtn'); // This will be null, but kept for structure if button is re-added. Consider removing if button is permanently gone.
 const errorElement = document.getElementById('error');
 const resultsDiv = document.getElementById('results');
@@ -30,6 +37,9 @@ const priceUnit = document.getElementById('priceUnit');
 const downPaymentAmountUnit = document.getElementById('downPaymentAmountUnit');
 const buyingFeesUnit = document.getElementById('buyingFeesUnit');
 const buyingTaxesUnit = document.getElementById('buyingTaxesUnit');
+const monthlyUtilitiesUnit = document.getElementById('monthlyUtilitiesUnit');
+const monthlyInsuranceUnit = document.getElementById('monthlyInsuranceUnit');
+const monthlyTaxesUnit = document.getElementById('monthlyTaxesUnit');
 
 // Theme switcher elements
 const themeSelect = document.getElementById('theme-select');
@@ -59,10 +69,16 @@ document.addEventListener('DOMContentLoaded', function() {
     buyingFeesInput.addEventListener('input', calculateMortgage);
     buyingTaxesInput.addEventListener('input', calculateMortgage);
     document.getElementById('firstPaymentDate').addEventListener('input', calculateMortgage);
+    monthlyUtilitiesInput.addEventListener('input', calculateVariables);
+    monthlyInsuranceInput.addEventListener('input', calculateVariables);
+    monthlyTaxesInput.addEventListener('input', calculateVariables);
+    inflationRateInput.addEventListener('input', calculateVariables);
+    realEstateInflationRateInput.addEventListener('input', calculateVariables);
     currencySelect.addEventListener('change', () => {
         updateAllCurrencyUnitSpans(currencySelect.value);
         updateDownPaymentAmountLabelText(); // Label text itself might not need to change now
         calculateMortgage(); // Always attempt to recalculate on currency change
+        calculateVariables(); // Also recalculate variables
     });
     // calculateBtn.addEventListener('click', calculateMortgage); // Button no longer primary trigger
     
@@ -85,6 +101,11 @@ document.addEventListener('DOMContentLoaded', function() {
     loadTheme();
 
     updateAllCurrencyUnitSpans(currencySelect.value); // Set initial currency unit spans
+    
+    // Initial variables calculation
+    setTimeout(() => {
+        calculateVariables();
+    }, 200);
 
     // Add event listeners for custom increment/decrement buttons
     const valueChangeButtons = document.querySelectorAll('.btn-decrement, .btn-increment');
@@ -578,6 +599,64 @@ function updateAllCurrencyUnitSpans(newSymbol) {
     if (downPaymentAmountUnit) downPaymentAmountUnit.textContent = newSymbol;
     if (buyingFeesUnit) buyingFeesUnit.textContent = newSymbol;
     if (buyingTaxesUnit) buyingTaxesUnit.textContent = newSymbol;
+    if (monthlyUtilitiesUnit) monthlyUtilitiesUnit.textContent = newSymbol;
+    if (monthlyInsuranceUnit) monthlyInsuranceUnit.textContent = newSymbol;
+    if (monthlyTaxesUnit) monthlyTaxesUnit.textContent = newSymbol;
+}
+
+// Calculate variables section
+function calculateVariables() {
+    const monthlyUtilities = parseFloat(monthlyUtilitiesInput.value) || 0;
+    const monthlyInsurance = parseFloat(monthlyInsuranceInput.value) || 0;
+    const monthlyTaxes = parseFloat(monthlyTaxesInput.value) || 0;
+    const inflationRate = parseFloat(inflationRateInput.value) || 0;
+    const realEstateInflationRate = parseFloat(realEstateInflationRateInput.value) || 0;
+    
+    // Get mortgage data for calculations
+    const loanTerm = parseInt(document.getElementById('loanTerm').value) * 12; // In months
+    const monthlyMortgagePayment = parseFloat(document.getElementById('summaryMonthlyPayment').textContent.replace(/[^0-9.-]/g, '')) || 0;
+    
+    // Calculate worst-case scenario: all variables increase with general inflation over the loan term
+    let totalUtilitiesCost = 0;
+    let totalInsuranceCost = 0;
+    let totalTaxes = 0;
+    let totalInflatedMonthlyPayments = 0;
+    
+    for (let month = 1; month <= loanTerm; month++) {
+        const yearsPassed = (month - 1) / 12;
+        const inflationMultiplier = Math.pow(1 + inflationRate / 100, yearsPassed);
+        
+        // Apply general inflation to monthly variables (utilities, insurance, taxes)
+        const inflatedUtilities = monthlyUtilities * inflationMultiplier;
+        const inflatedInsurance = monthlyInsurance * inflationMultiplier;
+        const inflatedTaxes = monthlyTaxes * inflationMultiplier;
+        
+        totalUtilitiesCost += inflatedUtilities;
+        totalInsuranceCost += inflatedInsurance;
+        totalTaxes += inflatedTaxes;
+        
+        // Calculate total monthly payment for this month (mortgage stays fixed)
+        const monthlyTotal = monthlyMortgagePayment + inflatedUtilities + inflatedInsurance + inflatedTaxes;
+        totalInflatedMonthlyPayments += monthlyTotal;
+    }
+    
+    // Calculate average monthly payment over the loan term (worst case estimation)
+    const averageMonthlyPayment = totalInflatedMonthlyPayments / loanTerm;
+    
+    // Calculate total cost over loan term
+    const totalMortgageCost = parseFloat(document.getElementById('summaryTotalCost').textContent.replace(/[^0-9.-]/g, '')) || 0;
+    const estimatedTotalCost = totalMortgageCost + totalUtilitiesCost + totalInsuranceCost + totalTaxes;
+    
+    // Calculate estimated total investment (property value after REAL ESTATE inflation)
+    const propertyPrice = parseFloat(document.getElementById('price').value) || 0;
+    const loanTermYears = loanTerm / 12;
+    const inflatedPropertyValue = propertyPrice * Math.pow(1 + realEstateInflationRate / 100, loanTermYears);
+    
+    // Update display
+    document.getElementById('estimatedTotalTaxes').textContent = formatCurrency(totalTaxes);
+    document.getElementById('estimatedMonthlyPayment').textContent = formatCurrency(averageMonthlyPayment);
+    document.getElementById('estimatedTotalCost').textContent = formatCurrency(estimatedTotalCost);
+    document.getElementById('estimatedTotalInvestment').textContent = formatCurrency(inflatedPropertyValue);
 }
 
 // Listen for OS theme changes if 'system' is selected

@@ -243,7 +243,12 @@ h3 {
 #loanTerm,
 #buyingFees,
 #buyingTaxes,
-#firstPaymentDate {
+#firstPaymentDate,
+#monthlyUtilities,
+#monthlyInsurance,
+#monthlyTaxes,
+#inflationRate,
+#realEstateInflationRate {
     width: 14ch; /* Approx 10-12 digits wide */
     max-width: 100%; /* Ensure responsiveness */
     text-align: left;
@@ -265,7 +270,17 @@ h3 {
 #buyingFees::-webkit-outer-spin-button,
 #buyingFees::-webkit-inner-spin-button,
 #buyingTaxes::-webkit-outer-spin-button,
-#buyingTaxes::-webkit-inner-spin-button {
+#buyingTaxes::-webkit-inner-spin-button,
+#monthlyUtilities::-webkit-outer-spin-button,
+#monthlyUtilities::-webkit-inner-spin-button,
+#monthlyInsurance::-webkit-outer-spin-button,
+#monthlyInsurance::-webkit-inner-spin-button,
+#monthlyTaxes::-webkit-outer-spin-button,
+#monthlyTaxes::-webkit-inner-spin-button,
+#inflationRate::-webkit-outer-spin-button,
+#inflationRate::-webkit-inner-spin-button,
+#realEstateInflationRate::-webkit-outer-spin-button,
+#realEstateInflationRate::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0; /* Removes the space allocated for spinners */
 }
@@ -566,5 +581,54 @@ tr:hover {
     .pagination-controls {
         flex-direction: column;
         gap: 0.5rem;
+    }
+}
+
+/* Variables Section Styles */
+.variables-section {
+    margin: 2rem 0;
+    padding: 1.5rem;
+    background-color: var(--container-bg);
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s;
+}
+
+.variables-section h3 {
+    color: var(--primary-text-color);
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    transition: color 0.3s;
+}
+
+.variables-content {
+    display: flex;
+    gap: 2rem;
+    align-items: flex-start;
+}
+
+.variables-form-container {
+    flex: 1;
+}
+
+.variables-info-section {
+    flex: 1;
+    padding: 1.5rem;
+    background-color: var(--summary-bg);
+    border-radius: 8px;
+    transition: background-color 0.3s;
+    min-width: 300px;
+}
+
+/* Responsive adjustments for variables section */
+@media (max-width: 768px) {
+    .variables-content {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .variables-info-section {
+        min-width: auto;
     }
 }

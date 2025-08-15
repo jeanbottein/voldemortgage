@@ -176,6 +176,101 @@
         
         <div id="error" class="error"></div>
         
+        <div class="variables-section">
+            <h3 data-i18n="variablesTitle">Variables</h3>
+            <div class="variables-content">
+                <div class="variables-form-container">
+                    <div class="form-row">
+                        <div class="form-label-wrapper">
+                            <label for="monthlyUtilities" data-i18n="monthlyUtilities">Monthly Utilities</label>
+                        </div>
+                        <div class="form-field-wrapper">
+                            <input type="number" id="monthlyUtilities" name="monthlyUtilities" value="0" step="any" placeholder="0">
+                            <span class="input-unit" id="monthlyUtilitiesUnit">$</span>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-label-wrapper">
+                            <label for="monthlyInsurance" data-i18n="monthlyInsurance">Monthly Insurance</label>
+                        </div>
+                        <div class="form-field-wrapper">
+                            <input type="number" id="monthlyInsurance" name="monthlyInsurance" value="0" step="any" placeholder="0">
+                            <span class="input-unit" id="monthlyInsuranceUnit">$</span>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-label-wrapper">
+                            <label for="monthlyTaxes" data-i18n="monthlyTaxes">Monthly Property Taxes</label>
+                        </div>
+                        <div class="form-field-wrapper">
+                            <input type="number" id="monthlyTaxes" name="monthlyTaxes" value="0" step="any" placeholder="0">
+                            <span class="input-unit" id="monthlyTaxesUnit">$</span>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-label-wrapper">
+                            <label for="inflationRate" data-i18n="inflationRate">Annual Inflation Rate</label>
+                        </div>
+                        <div class="form-field-wrapper">
+                            <input type="number" id="inflationRate" name="inflationRate" value="3" step="0.1" placeholder="3.0">
+                            <span class="input-unit">%</span>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-label-wrapper">
+                            <label for="realEstateInflationRate" data-i18n="realEstateInflationRate">Real Estate Inflation Rate</label>
+                        </div>
+                        <div class="form-field-wrapper">
+                            <input type="number" id="realEstateInflationRate" name="realEstateInflationRate" value="4" step="0.1" placeholder="4.0">
+                            <span class="input-unit">%</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="variables-info-section">
+                    <div class="info-row">
+                        <div class="info-label-wrapper">
+                            <label data-i18n="estimatedTotalTaxes">Estimated Total Taxes</label>
+                        </div>
+                        <div class="info-field-wrapper">
+                            <div class="info-display" id="estimatedTotalTaxes"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="info-row">
+                        <div class="info-label-wrapper">
+                            <label data-i18n="estimatedMonthlyPayment">Estimated Monthly Payment</label>
+                        </div>
+                        <div class="info-field-wrapper">
+                            <div class="info-display" id="estimatedMonthlyPayment"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="info-row">
+                        <div class="info-label-wrapper">
+                            <label data-i18n="estimatedTotalCost">Estimated Total Cost</label>
+                        </div>
+                        <div class="info-field-wrapper">
+                            <div class="info-display" id="estimatedTotalCost"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="info-row">
+                        <div class="info-label-wrapper">
+                            <label data-i18n="estimatedTotalInvestment">Estimated Total Investment</label>
+                        </div>
+                        <div class="info-field-wrapper">
+                            <div class="info-display" id="estimatedTotalInvestment"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
         <div class="results" id="results" style="display: none;">
             <h3 data-i18n="amortizationSchedule">Amortization Schedule</h3>
             <div style="margin: 1rem 0;">

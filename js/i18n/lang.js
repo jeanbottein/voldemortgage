@@ -14,6 +14,18 @@ const languages = {
         'buyingTaxes': 'buying taxes',
         'firstPaymentDate': 'first payment date',
         
+        // Variables section
+        'variablesTitle': 'variables',
+        'monthlyUtilities': 'monthly utilities',
+        'monthlyInsurance': 'monthly insurance',
+        'monthlyTaxes': 'monthly property taxes',
+        'inflationRate': 'annual inflation rate',
+        'realEstateInflationRate': 'real estate inflation',
+        'estimatedTotalTaxes': 'estimated total taxes',
+        'estimatedMonthlyPayment': 'estimated monthly cost',
+        'estimatedTotalCost': 'estimated total cost',
+        'estimatedTotalInvestment': 'estimated total investment',
+        
         // Units
         'years': 'years',
         'percentage': '%',
@@ -84,6 +96,18 @@ const languages = {
         'buyingFees': "frais d'achat",
         'buyingTaxes': "taxes d'achat",
         'firstPaymentDate': 'date du premier paiement',
+        
+        // Variables section
+        'variablesTitle': 'variables',
+        'monthlyUtilities': 'services publics mensuels',
+        'monthlyInsurance': 'assurance mensuelle',
+        'monthlyTaxes': 'taxes foncières mensuelles',
+        'inflationRate': "taux d'inflation annuel",
+        'realEstateInflationRate': "inflation immobilière",
+        'estimatedTotalTaxes': 'taxes totales estimées',
+        'estimatedMonthlyPayment': 'coût mensuel estimé',
+        'estimatedTotalCost': 'coût total estimé',
+        'estimatedTotalInvestment': 'investissement total estimé',
         
         // Units
         'years': 'ans',
