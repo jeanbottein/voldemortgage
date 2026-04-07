@@ -510,6 +510,22 @@ tr:hover {
     transition: background-color 0.3s, color 0.3s;
 }
 
+.field-invalid {
+    border-color: var(--error-text-color) !important;
+    outline-color: var(--error-text-color);
+}
+
+.field-error-message {
+    color: var(--error-text-color);
+    font-size: 0.8rem;
+    margin-top: 0.25rem;
+    display: none;
+}
+
+.field-error-message.visible {
+    display: block;
+}
+
 .pagination-controls {
     margin-top: 1rem;
     text-align: center;

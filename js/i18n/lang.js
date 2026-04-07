@@ -199,23 +199,19 @@ function initLanguage() {
 
 // Function to update all text elements on the page
 function updatePageLanguage() {
-    // Update document title
     document.title = getText('title');
-    
-    // Update all elements with data-i18n attribute
-    document.querySelectorAll('[data-i18n]').forEach(element => {
-        const key = element.getAttribute('data-i18n');
-        if (key) {
-            element.textContent = getText(key);
-        }
-    });
-    
-    // Update all placeholders with data-i18n-placeholder
-    document.querySelectorAll('[data-i18n-placeholder]').forEach(element => {
-        const key = element.getAttribute('data-i18n-placeholder');
-        if (key) {
-            element.placeholder = getText(key);
-        }
+
+    const TARGETS = [
+        { selector: '[data-i18n]',            attr: null },
+        { selector: '[data-i18n-placeholder]', attr: 'placeholder' },
+    ];
+
+    TARGETS.forEach(({ selector, attr }) => {
+        document.querySelectorAll(selector).forEach(el => {
+            const key = el.getAttribute(attr ? `data-i18n-${attr}` : 'data-i18n');
+            if (!key) return;
+            attr ? (el[attr] = getText(key)) : (el.textContent = getText(key));
+        });
     });
 }
 
