@@ -234,7 +234,7 @@ function validateMortgageInputs({ price, buyingFees, buyingTaxes, interestRate, 
         return { valid: false, fieldId: 'downPaymentAmount', errorKey: 'errorDownPaymentExceedsCost' };
     if (isNaN(downPaymentPercent) || downPaymentPercent < 0 || downPaymentPercent > 100)
         return { valid: false, fieldId: 'downPaymentPercent', errorKey: 'errorInvalidDownPaymentPercent' };
-    if (interestRate * 100 * MONTHLY_RATE_DIVISOR <= 0)
+    if (isNaN(interestRate) || interestRate * 100 * MONTHLY_RATE_DIVISOR <= 0)
         return { valid: false, fieldId: 'interestRate', errorKey: 'errorInvalidInterestRate' };
 
     return { valid: true };
