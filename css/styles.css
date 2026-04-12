@@ -1,241 +1,288 @@
+/* ================================================================
+   VOLDEMORTGAGE — Modern UI
+   Pistachio green + Pale pink palette, slate neutrals
+   ================================================================ */
+
+/* ── Design Tokens ─────────────────────────────────────────────── */
 :root {
-    --bg-color: #f5f7fa;
-    --text-color: #333;
-    --container-bg: white;
-    --input-bg: white;
-    --input-border: #ddd;
-    --primary-text-color: #2c3e50;
-    --secondary-text-color: #333;
-    --button-bg: #3498db;
-    --button-text: white;
-    --table-header-bg: #f2f2f2;
-    --table-row-hover-bg: #f5f5f5;
-    --summary-bg: #f8f9fa;
-    --error-text-color: #e74c3c;
-    --error-bg-color: #fde8e8;
-    --link-color: #3498db;
+    /* Typography */
+    --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    --font-mono: 'SF Mono', 'Cascadia Code', 'Fira Code', 'Consolas', monospace;
+    --text-xs: 0.75rem;
+    --text-sm: 0.8125rem;
+    --text-base: 0.875rem;
+    --text-lg: 1rem;
+    --text-xl: 1.25rem;
+    --text-2xl: 1.75rem;
+    --leading-tight: 1.3;
+    --leading-normal: 1.5;
+    --font-weight-normal: 400;
+    --font-weight-medium: 500;
+    --font-weight-semibold: 600;
+
+    /* Spacing (4px base) */
+    --sp-1: 4px;
+    --sp-2: 8px;
+    --sp-3: 12px;
+    --sp-4: 16px;
+    --sp-5: 20px;
+    --sp-6: 24px;
+    --sp-8: 32px;
+    --sp-12: 48px;
+
+    /* Radius */
+    --radius-sm: 6px;
+    --radius-md: 10px;
+    --radius-lg: 12px;
+    --radius-xl: 16px;
+    --radius-full: 9999px;
+
+    /* Shadows */
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.07), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -4px rgba(0, 0, 0, 0.04);
+
+    /* Transitions */
+    --transition-fast: 150ms ease;
+    --transition-base: 200ms ease;
+
+    /* Light Theme Colors */
+    --bg-color: #fafafa;
+    --text-color: #334155;
+    --text-muted: #64748b;
+    --container-bg: #ffffff;
+    --input-bg: #ffffff;
+    --input-border: #e2e8f0;
+    --input-border-focus: #7cb66a;
+    --input-focus-ring: rgba(124, 182, 106, 0.25);
+    --primary-text-color: #1e293b;
+    --secondary-text-color: #64748b;
+    --accent: #7cb66a;
+    --accent-hover: #6aa358;
+    --accent-subtle: #f0f7ee;
+    --hero-bg: #fdf0f3;
+    --hero-border: #f4b8c1;
+    --hero-accent: #d5707f;
+    --button-bg: #7cb66a;
+    --button-text: #ffffff;
+    --button-hover-bg: #6aa358;
+    --table-header-bg: #f8fafc;
+    --table-row-hover-bg: #f1f5f9;
+    --table-zebra-bg: #fafbfc;
+    --summary-bg: #f8fafc;
+    --card-border: #e2e8f0;
+    --section-border: #f1f5f9;
+    --error-text-color: #dc2626;
+    --error-bg-color: #fef2f2;
+    --link-color: #7cb66a;
 }
 
 body.dark-mode {
-    --bg-color: #1a1a1a; /* Darker background */
-    --text-color: #e0e0e0; /* Lighter text */
-    --container-bg: #2c2c2c; /* Dark container */
-    --input-bg: #3a3a3a; /* Dark input fields */
-    --input-border: #555; /* Darker border for inputs */
-    --primary-text-color: #d0d0d0; /* Lighter primary text */
-    --secondary-text-color: #b0b0b0; /* Lighter secondary text */
-    --button-bg: #007bff; /* Brighter button for dark mode */
-    --button-text: white;
-    --table-header-bg: #3a3a3a; /* Dark table header */
-    --table-row-hover-bg: #4a4a4a; /* Darker row hover */
-    --summary-bg: #333333; /* Dark summary box */
-    --error-text-color: #ff8a80; /* Lighter error text */
-    --error-bg-color: #5c2b29; /* Darker error background */
-    --link-color: #6cb2eb;
+    --bg-color: #0f172a;
+    --text-color: #cbd5e1;
+    --text-muted: #64748b;
+    --container-bg: #1e293b;
+    --input-bg: #1e293b;
+    --input-border: #334155;
+    --input-border-focus: #9fd48f;
+    --input-focus-ring: rgba(159, 212, 143, 0.3);
+    --primary-text-color: #e2e8f0;
+    --secondary-text-color: #94a3b8;
+    --accent: #9fd48f;
+    --accent-hover: #b3e0a5;
+    --accent-subtle: rgba(159, 212, 143, 0.1);
+    --hero-bg: rgba(244, 184, 193, 0.1);
+    --hero-border: #e8a0ad;
+    --hero-accent: #f4b8c1;
+    --button-bg: #9fd48f;
+    --button-text: #0f172a;
+    --button-hover-bg: #b3e0a5;
+    --table-header-bg: #1e293b;
+    --table-row-hover-bg: #263245;
+    --table-zebra-bg: #172033;
+    --summary-bg: #172033;
+    --card-border: #334155;
+    --section-border: #1e293b;
+    --error-text-color: #fca5a5;
+    --error-bg-color: rgba(220, 38, 38, 0.15);
+    --link-color: #9fd48f;
+
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -2px rgba(0, 0, 0, 0.3);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5), 0 4px 6px -4px rgba(0, 0, 0, 0.4);
 }
 
-:root {
-    --bg-color: #f5f7fa;
-    --text-color: #333;
-    --container-bg: white;
-    --input-bg: white;
-    --input-border: #ddd;
-    --primary-text-color: #2c3e50;
-    --secondary-text-color: #333;
-    --button-bg: #3498db;
-    --button-text: white;
-    --table-header-bg: #f2f2f2;
-    --table-row-hover-bg: #f5f5f5;
-    --summary-bg: #f8f9fa;
-    --error-text-color: #e74c3c;
-    --error-bg-color: #fde8e8;
-    --link-color: #3498db;
-    --active-theme-border: #007bff; /* A distinct color for active theme button border */
-}
-
-body.dark-mode {
-    --bg-color: #1a1a1a;
-    --text-color: #e0e0e0;
-    --container-bg: #2c2c2c;
-    --input-bg: #3a3a3a;
-    --input-border: #555;
-    --primary-text-color: #d0d0d0;
-    --secondary-text-color: #b0b0b0;
-    --button-bg: #007bff;
-    --button-text: white;
-    --table-header-bg: #3a3a3a;
-    --table-row-hover-bg: #4a4a4a;
-    --summary-bg: #333333;
-    --error-text-color: #ff8a80;
-    --error-bg-color: #5c2b29;
-    --link-color: #6cb2eb;
-    --active-theme-border: #6cb2eb; /* Lighter border for active theme in dark mode */
-}
-
-.top-right-controls {
-    position: absolute;
-    top: 1.5rem;
-    right: 1.5rem;
-    display: flex;
-    gap: 0.5rem;
-}
-
-.top-right-controls select {
-    padding: 0.3rem 0.5rem;
-    font-size: 0.9rem; /* Consistent with general input/select */
-    line-height: 1.5;  /* Consistent line height for vertical rhythm */
-    width: auto;
-    background-color: var(--input-bg);
-    color: var(--text-color);
-    border: 1px solid var(--input-border);
-    border-radius: 4px;
-    cursor: pointer;
+/* ── Reset & Base ──────────────────────────────────────────────── */
+*, *::before, *::after {
     box-sizing: border-box;
-    /* Removed explicit height, display: inline-flex, and align-items: center from select itself */
 }
-
-/* Removed .container > div[id$="-wrapper"] rule as Flexbox handles layout now */
 
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    line-height: 1.6;
+    font-family: var(--font-sans);
+    font-size: var(--text-base);
+    line-height: var(--leading-normal);
     color: var(--text-color);
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
     background-color: var(--bg-color);
-    transition: background-color 0.3s, color 0.3s;
+    margin: 0;
+    padding: var(--sp-4);
+    transition: background-color var(--transition-base), color var(--transition-base);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
+/* ── Container ─────────────────────────────────────────────────── */
 .container {
-    position: relative; /* For absolute positioning of children */
+    position: relative;
+    max-width: 1080px;
+    margin: 0 auto;
     background-color: var(--container-bg);
-    padding: 2rem;
-    border-radius: 10px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Shadow might need adjustment for dark mode if too stark */
-    transition: background-color 0.3s;
+    padding: var(--sp-6);
+    border-radius: var(--radius-xl);
+    border: 1px solid var(--card-border);
+    box-shadow: var(--shadow-lg);
+    transition: background-color var(--transition-base), border-color var(--transition-base);
 }
 
+/* ── Typography ────────────────────────────────────────────────── */
 h1 {
+    font-size: var(--text-xl);
+    font-weight: var(--font-weight-semibold);
     color: var(--primary-text-color);
     text-align: center;
-    margin-bottom: 2rem;
-    transition: color 0.3s;
+    margin: 0 0 var(--sp-5) 0;
+    letter-spacing: -0.025em;
+    transition: color var(--transition-base);
 }
 
 h3 {
+    font-size: var(--text-lg);
+    font-weight: var(--font-weight-semibold);
     color: var(--primary-text-color);
-    margin-top: 0;
-    transition: color 0.3s;
+    margin: 0 0 var(--sp-4) 0;
+    letter-spacing: -0.015em;
+    transition: color var(--transition-base);
 }
 
-/* Main Content Layout */
-.main-content {
+/* ── Top-Right Controls ────────────────────────────────────────── */
+.top-right-controls {
+    position: absolute;
+    top: var(--sp-4);
+    right: var(--sp-4);
     display: flex;
-    gap: 2rem;
-    align-items: flex-start;
-}
-
-/* Info Section Styles */
-.info-section {
-    flex: 1;
-    margin-top: 0;
-    padding: 1.5rem;
-    background-color: var(--summary-bg);
-    border-radius: 8px;
-    transition: background-color 0.3s;
-    min-width: 300px;
-}
-
-.info-row {
-    display: flex;
-    align-items: center;
-    margin-bottom: 1rem;
-}
-
-.info-label-wrapper {
-    flex: 0 0 180px;
-    text-align: right;
-    padding-right: 1rem;
-    box-sizing: border-box;
-}
-
-.info-label-wrapper label {
-    display: block;
-    margin-bottom: 0;
-    font-weight: 500;
-    color: var(--primary-text-color);
-    transition: color 0.3s;
-}
-
-.info-field-wrapper {
-    flex: 1;
-    display: flex;
+    gap: var(--sp-1);
     align-items: center;
 }
 
-.info-display {
-    width: 100%;
-    padding: 0.5rem;
-    border: 1px solid var(--input-border);
+.top-right-controls select,
+.control-pill select {
+    padding: 4px 8px;
+    font-size: var(--text-xs);
+    line-height: var(--leading-normal);
     background-color: var(--input-bg);
-    color: var(--text-color);
-    border-radius: 4px;
-    font-size: 0.9rem;
-    box-sizing: border-box;
-    transition: background-color 0.3s, border-color 0.3s, color 0.3s;
-    font-family: 'Courier New', monospace;
-    text-align: right;
-    min-height: 2.2rem;
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
+    color: var(--text-muted);
+    border: 1px solid var(--input-border);
+    border-radius: var(--radius-full);
+    cursor: pointer;
+    outline: none;
+    width: auto;
+    transition: border-color var(--transition-fast), box-shadow var(--transition-fast),
+                background-color var(--transition-base), color var(--transition-base);
 }
 
-/* New Form Layout Styles */
+.top-right-controls select:focus,
+.control-pill select:focus {
+    border-color: var(--input-border-focus);
+    box-shadow: 0 0 0 2px var(--input-focus-ring);
+}
+
+.top-right-controls select:hover,
+.control-pill select:hover {
+    border-color: var(--accent);
+}
+
+/* ── Main Content Grid ─────────────────────────────────────────── */
+.main-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--sp-6);
+    align-items: start;
+}
+
+/* ── Form Layout ───────────────────────────────────────────────── */
 .input-form-container {
-    flex: 1;
-    box-sizing: border-box;
-    margin-bottom: 0; /* Remove bottom margin since we're side by side */
+    display: flex;
+    flex-direction: column;
 }
 
 .form-row {
     display: flex;
-    align-items: center; /* Vertically align label and field */
-    margin-bottom: 1rem; /* Space between rows */
+    align-items: center;
+    margin-bottom: var(--sp-2);
 }
 
 .form-label-wrapper {
-    flex: 0 0 180px; /* Fixed width for labels, adjust as needed */
+    flex: 0 0 140px;
     text-align: right;
-    padding-right: 1rem; /* Space between label and field */
+    padding-right: var(--sp-3);
     box-sizing: border-box;
 }
 
-.form-field-wrapper {
-    flex: 1; /* Field takes remaining space */
-    display: flex;
-    align-items: center;
+.form-label-wrapper label {
+    display: block;
+    margin-bottom: 0;
+    font-weight: var(--font-weight-medium);
+    font-size: var(--text-sm);
+    color: var(--secondary-text-color);
+    transition: color var(--transition-base);
+    white-space: nowrap;
 }
 
-/* Default width for inputs/selects within the new form structure */
-.form-field-wrapper input,
-.form-field-wrapper select {
-    /* width: 100%; Make them fill their wrapper by default - Removed */
-    /* flex-grow: 1; Input takes available space - Removed to allow specific widths to take effect */
-    /* The specific width: 14ch for numeric inputs (e.g., #price) should now primarily control their width. */
-    /* Add a default max-width to prevent overflow if no specific width is set and wrapper is too small */
-    max-width: 100%; 
+.form-field-wrapper {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+label {
+    display: block;
+    margin-bottom: 0;
+    font-weight: var(--font-weight-medium);
+    font-size: var(--text-sm);
+    color: var(--primary-text-color);
+    transition: color var(--transition-base);
+}
+
+/* ── Inputs & Selects ──────────────────────────────────────────── */
+input, select {
+    padding: 6px 10px;
+    border: 1px solid var(--input-border);
+    background-color: var(--input-bg);
+    color: var(--text-color);
+    border-radius: var(--radius-sm);
+    font-size: var(--text-base);
+    font-family: var(--font-sans);
+    box-sizing: border-box;
+    width: 100%;
+    outline: none;
+    transition: border-color var(--transition-fast), box-shadow var(--transition-fast),
+                background-color var(--transition-base), color var(--transition-base);
+}
+
+input:focus, select:focus {
+    border-color: var(--input-border-focus);
+    box-shadow: 0 0 0 3px var(--input-focus-ring);
 }
 
 .input-unit {
-    margin-left: 0.5rem; /* Space between input and unit */
-    color: var(--secondary-text-color);
-    font-size: 0.9em;
-    white-space: nowrap; /* Prevent unit from wrapping */
+    margin-left: var(--sp-2);
+    color: var(--text-muted);
+    font-size: var(--text-sm);
+    white-space: nowrap;
+    font-family: var(--font-mono);
 }
 
-/* Consistent styling for primary numeric input fields */
+/* Numeric input sizing & monospace */
 #price,
 #downPaymentPercent,
 #downPaymentAmount,
@@ -243,20 +290,27 @@ h3 {
 #loanTerm,
 #buyingFees,
 #buyingTaxes,
-#firstPaymentDate,
 #monthlyUtilities,
 #monthlyInsurance,
 #monthlyTaxes,
 #inflationRate,
 #realEstateInflationRate {
-    width: 14ch; /* Approx 10-12 digits wide */
-    max-width: 100%; /* Ensure responsiveness */
-    text-align: left;
-    -moz-appearance: textfield; /* Hide spinners in Firefox */
-    appearance: textfield; /* Standard property to hide spinners */
+    width: 14ch;
+    max-width: 100%;
+    text-align: right;
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    -moz-appearance: textfield;
+    appearance: textfield;
 }
 
-/* Hide spinners for Webkit/Blink browsers (Chrome, Safari, Edge, Opera) */
+#firstPaymentDate {
+    width: 14ch;
+    max-width: 100%;
+    text-align: left;
+}
+
+/* Hide spinners — Webkit */
 #price::-webkit-outer-spin-button,
 #price::-webkit-inner-spin-button,
 #downPaymentPercent::-webkit-outer-spin-button,
@@ -282,369 +336,474 @@ h3 {
 #realEstateInflationRate::-webkit-outer-spin-button,
 #realEstateInflationRate::-webkit-inner-spin-button {
     -webkit-appearance: none;
-    margin: 0; /* Removes the space allocated for spinners */
-}
-
-/* Ensure labels inside wrappers still get their styles */
-.form-label-wrapper label {
-    display: block; 
-    margin-bottom: 0; /* Remove bottom margin as row handles spacing */
-    font-weight: 500;
-    color: var(--primary-text-color);
-    transition: color 0.3s;
-}
-
-label {
-    display: block;
-    margin-bottom: 0.5rem;
-    font-weight: 500;
-    color: var(--primary-text-color);
-    transition: color 0.3s;
-}
-
-input, select {
-    width: 100%;
-    padding: 0.5rem;
-    border: 1px solid var(--input-border);
-    background-color: var(--input-bg);
-    color: var(--text-color);
-    border-radius: 4px;
-    font-size: 0.9rem;
-    box-sizing: border-box; /* Ensure padding and border don't increase width */
-    transition: background-color 0.3s, border-color 0.3s, color 0.3s;
-}
-
-/* Hide default number input spinners */
-/* For Chrome, Safari, Edge, Opera */
-input[type=number]::-webkit-outer-spin-button,
-input[type=number]::-webkit-inner-spin-button {
-    -webkit-appearance: none;
     margin: 0;
 }
-/* For Firefox */
+
+/* Hide spinners — Firefox */
 input[type=number] {
     -moz-appearance: textfield;
-    appearance: textfield; /* Standard property for compatibility */
+    appearance: textfield;
 }
 
-/* Custom Number Input Styles */
+/* Autofill override */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 30px var(--input-bg) inset !important;
+    -webkit-text-fill-color: var(--text-color) !important;
+}
+
+/* ── Info / Summary Section ────────────────────────────────────── */
+.info-section {
+    padding: var(--sp-4);
+    background-color: var(--summary-bg);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius-lg);
+    min-width: 0;
+    transition: background-color var(--transition-base), border-color var(--transition-base);
+}
+
+.info-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: var(--sp-2);
+    padding-bottom: var(--sp-2);
+    border-bottom: 1px solid var(--section-border);
+}
+
+.info-row:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+}
+
+.info-label-wrapper {
+    flex: 0 0 140px;
+    text-align: right;
+    padding-right: var(--sp-3);
+    box-sizing: border-box;
+}
+
+.info-label-wrapper label {
+    display: block;
+    margin-bottom: 0;
+    font-weight: var(--font-weight-medium);
+    font-size: var(--text-sm);
+    color: var(--secondary-text-color);
+    transition: color var(--transition-base);
+}
+
+.info-field-wrapper {
+    flex: 1;
+    display: flex;
+    align-items: center;
+}
+
+.info-display {
+    width: 100%;
+    padding: 6px 10px;
+    background-color: transparent;
+    border: none;
+    color: var(--primary-text-color);
+    font-family: var(--font-mono);
+    font-size: var(--text-base);
+    font-weight: var(--font-weight-semibold);
+    text-align: right;
+    min-height: auto;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    transition: color var(--transition-base);
+}
+
+/* ── Hero Metric (Monthly Payment full card) ───────────────────── */
+.hero-metric {
+    background-color: var(--hero-bg);
+    border: 1px solid var(--hero-border);
+    border-bottom: 1px solid var(--hero-border);
+    border-radius: var(--radius-lg);
+    padding: var(--sp-4);
+    margin-bottom: var(--sp-3);
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.hero-metric .info-label-wrapper {
+    flex: none;
+    text-align: center;
+    padding-right: 0;
+    margin-bottom: var(--sp-1);
+}
+
+.hero-metric .info-label-wrapper label {
+    font-weight: var(--font-weight-semibold);
+    color: var(--primary-text-color);
+    font-size: var(--text-base);
+}
+
+.hero-metric .info-field-wrapper {
+    justify-content: center;
+}
+
+.hero-metric .info-display {
+    font-size: var(--text-2xl);
+    font-weight: var(--font-weight-semibold);
+    color: var(--hero-accent);
+    letter-spacing: -0.02em;
+    justify-content: center;
+    text-align: center;
+}
+
+/* ── Shared Card Style ─────────────────────────────────────────── */
+.card {
+    background-color: var(--container-bg);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius-lg);
+    padding: var(--sp-5);
+    box-shadow: var(--shadow-sm);
+    transition: background-color var(--transition-base), border-color var(--transition-base);
+}
+
+/* ── Buttons ───────────────────────────────────────────────────── */
+button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px 16px;
+    background-color: var(--button-bg);
+    color: var(--button-text);
+    border: none;
+    border-radius: var(--radius-full);
+    font-size: var(--text-sm);
+    font-family: var(--font-sans);
+    font-weight: var(--font-weight-medium);
+    cursor: pointer;
+    width: auto;
+    line-height: var(--leading-normal);
+    transition: background-color var(--transition-fast), transform var(--transition-fast);
+}
+
+button:hover {
+    background-color: var(--button-hover-bg);
+    transform: scale(1.02);
+}
+
+button:active {
+    transform: scale(0.98);
+}
+
+button:disabled {
+    background-color: var(--input-border);
+    color: var(--text-muted);
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* ── Custom Number Input (increment/decrement) ─────────────────── */
 .custom-number-input {
     display: flex;
-    align-items: center; /* Vertically align items */
+    align-items: center;
 }
 
 .custom-number-input input[type=number] {
     text-align: center;
     border-left: none;
     border-right: none;
-    border-radius: 0; /* Remove border-radius from input where it meets buttons */
-    /* Keep specific width from #id selectors, but ensure it doesn't expand beyond its flex item space */
-    flex-grow: 1; /* Allow input to take available space if needed, but width is constrained by its own styles */
-    min-width: 0; /* Important for flex items with explicit width */
+    border-radius: 0;
+    flex-grow: 1;
+    min-width: 0;
 }
 
 .custom-number-input button {
     background-color: var(--button-bg);
     color: var(--button-text);
-    border: 1px solid var(--input-border); /* Match input border */
-    padding: 0.5rem 0.75rem; /* Adjust padding as needed */
+    border: 1px solid var(--input-border);
+    padding: 6px 10px;
     cursor: pointer;
-    font-size: 0.9rem;
-    line-height: 1; /* Ensure text is centered if padding makes it tall */
-    display: flex; /* For centering content if needed */
+    font-size: var(--text-base);
+    display: flex;
     align-items: center;
     justify-content: center;
-    width: auto; /* Override general button width: 100% */
-    transition: background-color 0.3s, filter 0.3s;
-}
-
-.custom-number-input button:hover {
-    filter: brightness(90%);
+    width: auto;
+    border-radius: 0;
+    transition: background-color var(--transition-fast);
 }
 
 .custom-number-input .btn-decrement {
     border-right: none;
-    border-radius: 4px 0 0 4px; /* Half-round on the left */
+    border-radius: var(--radius-sm) 0 0 var(--radius-sm);
 }
 
 .custom-number-input .btn-increment {
     border-left: none;
-    border-radius: 0 4px 4px 0; /* Half-round on the right */
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
 }
 
-input:-webkit-autofill,
-input:-webkit-autofill:hover,
-input:-webkit-autofill:focus,
-input:-webkit-autofill:active {
-    -webkit-box-shadow: 0 0 0 30px var(--input-bg) inset !important; /* Override browser autofill styles */
-    -webkit-text-fill-color: var(--text-color) !important;
-}
-
-/* General page buttons, not theme selector buttons */
-button {
-    display: block;
-    width: 100%;
-    padding: 0.6rem;
-    background-color: var(--button-bg);
-    color: var(--button-text);
-    border: none;
-    border-radius: 4px;
-    font-size: 0.9rem;
-    cursor: pointer;
-    transition: background-color 0.3s, color 0.3s;
-}
-
-/* General page button hover */
-button:hover {
-    filter: brightness(90%);
-}
-
-button:disabled {
-    background-color: var(--secondary-text-color); /* Use a muted color from variables */
-    opacity: 0.7;
-    cursor: not-allowed;
-}
-
-.results {
-    margin-top: 2rem;
-    overflow-x: auto;
-}
-
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 1rem;
-}
-
-th, td {
-    padding: 0.5rem;
-    text-align: left;
-    border-bottom: 1px solid var(--input-border);
-    transition: border-color 0.3s;
-}
-
-th {
-    background-color: var(--table-header-bg);
-    font-weight: 600;
-    color: var(--primary-text-color);
-    transition: background-color 0.3s, color 0.3s;
-}
-
-tr:hover {
-    background-color: var(--table-row-hover-bg);
-    transition: background-color 0.2s; /* Faster transition for hover */
-}
-
-.summary {
-    flex: 1;
-    margin-top: 0;
-    padding: 1.5rem;
-    background-color: var(--summary-bg);
-    border-radius: 8px;
-    transition: background-color 0.3s;
-    min-width: 300px;
-}
-
-.summary ul {
-    list-style-type: none;
-    padding-left: 0; /* Remove default left padding for lists */
-}
-
-/* Summary Table Styles */
-.summary-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 0;
-    background-color: var(--container-bg);
-}
-
-.summary-table td {
-    padding: 0.75rem 1rem;
-    border-bottom: 1px solid var(--input-border);
-    vertical-align: middle;
-}
-
-.summary-table td:first-child {
-    font-weight: 500;
-    color: var(--primary-text-color);
-    width: 50%;
-}
-
-.summary-table td:last-child {
-    text-align: right;
-    font-family: 'Courier New', monospace;
-    color: var(--secondary-text-color);
-}
-
-.summary-table .total-row td {
-    border-top: 2px solid var(--input-border);
-    border-bottom: 2px solid var(--input-border);
-    background-color: var(--table-header-bg);
-    font-size: 1.1em;
-}
-
-.summary-table .highlight-row td {
-    background-color: var(--table-header-bg);
-    font-size: 1.1em;
-    color: var(--primary-text-color);
-}
-
-.summary-table .spacer-row td {
-    padding: 0.25rem;
-    border-bottom: none;
-}
-
-.summary-table tr:hover td {
-    background-color: var(--table-row-hover-bg);
-}
-
+/* ── Error Styles ──────────────────────────────────────────────── */
 .error {
     color: var(--error-text-color);
-    margin-top: 0.5rem;
-    font-size: 0.9rem;
-    display: none;
-    padding: 0.75rem;
+    font-size: var(--text-sm);
+    padding: var(--sp-3);
     background-color: var(--error-bg-color);
-    border-radius: 4px;
-    margin-bottom: 1rem;
-    transition: background-color 0.3s, color 0.3s;
+    border: 1px solid var(--error-text-color);
+    border-radius: var(--radius-sm);
+    margin-bottom: var(--sp-3);
+    display: none;
+    transition: background-color var(--transition-base), color var(--transition-base);
 }
 
 .field-invalid {
     border-color: var(--error-text-color) !important;
-    outline-color: var(--error-text-color);
+    box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.15) !important;
 }
 
 .field-error-message {
     color: var(--error-text-color);
-    font-size: 0.8rem;
-    margin-top: 0.25rem;
+    font-size: var(--text-xs);
+    margin-top: 2px;
     display: none;
+    width: 100%;
 }
 
 .field-error-message.visible {
     display: block;
 }
 
-.pagination-controls {
-    margin-top: 1rem;
-    text-align: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 1rem;
-}
-
-.pagination-info {
-    margin: 0 1rem;
-}
-
-
-
-
-#theme-selector-wrapper button {
-    background: none;
-    border: 1px solid transparent; /* Transparent border for spacing, or adjust padding */
-    color: var(--primary-text-color);
-    padding: 0.2rem 0.4rem;
-    font-size: 1.1rem; /* Adjust icon size */
-    cursor: pointer;
-    border-radius: 4px;
-    line-height: 1; /* Ensure icon vertical alignment */
-    width: auto; /* Override general button width */
-    display: inline-flex; /* For better alignment of icon text */
-    align-items: center;
-    justify-content: center;
-}
-
-#theme-selector-wrapper button:hover {
-    background-color: var(--input-border); /* Subtle hover */
-    filter: none; /* Override general button hover */
-}
-
-#theme-selector-wrapper button.active {
-    border-color: var(--link-color); /* Highlight active theme */
-    background-color: var(--input-border);
-}
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-    .main-content {
-        flex-direction: column;
-        gap: 1rem;
-    }
-    
-    .input-form-container {
-        margin-bottom: 1rem;
-    }
-    
-    .info-section {
-        min-width: auto;
-    }
-    
-    .form-row, .info-row {
-        flex-direction: column;
-        align-items: stretch;
-    }
-    
-    .form-label-wrapper, .info-label-wrapper {
-        flex: none;
-        text-align: left;
-        padding-right: 0;
-        margin-bottom: 0.5rem;
-    }
-    
-    .pagination-controls {
-        flex-direction: column;
-        gap: 0.5rem;
-    }
-}
-
-/* Variables Section Styles */
+/* ── Variables Section ─────────────────────────────────────────── */
 .variables-section {
-    margin: 2rem 0;
-    padding: 1.5rem;
-    background-color: var(--container-bg);
-    border-radius: 10px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    transition: background-color 0.3s;
+    margin: var(--sp-6) 0;
 }
 
 .variables-section h3 {
-    color: var(--primary-text-color);
-    margin-top: 0;
-    margin-bottom: 1.5rem;
     text-align: center;
-    transition: color 0.3s;
+    margin-bottom: var(--sp-4);
+    padding-bottom: var(--sp-3);
+    border-bottom: 1px solid var(--section-border);
 }
 
 .variables-content {
-    display: flex;
-    gap: 2rem;
-    align-items: flex-start;
-}
-
-.variables-form-container {
-    flex: 1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--sp-6);
+    align-items: start;
 }
 
 .variables-info-section {
-    flex: 1;
-    padding: 1.5rem;
+    padding: var(--sp-4);
     background-color: var(--summary-bg);
-    border-radius: 8px;
-    transition: background-color 0.3s;
-    min-width: 300px;
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius-lg);
+    min-width: 0;
+    transition: background-color var(--transition-base), border-color var(--transition-base);
 }
 
-/* Responsive adjustments for variables section */
-@media (max-width: 768px) {
-    .variables-content {
-        flex-direction: column;
-        gap: 1rem;
+/* ── Amortization Table ────────────────────────────────────────── */
+.results {
+    margin-top: var(--sp-6);
+    overflow: visible;
+}
+
+.pagination-select-row {
+    margin: var(--sp-3) 0;
+    display: flex;
+    align-items: center;
+    gap: var(--sp-2);
+}
+
+.pagination-select-row label {
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+    font-weight: var(--font-weight-normal);
+}
+
+.pagination-select-row select {
+    width: auto;
+    padding: 4px 8px;
+    font-size: var(--text-sm);
+    border-radius: var(--radius-full);
+}
+
+.table-scroll-container {
+    overflow-x: auto;
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius-md);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0;
+    font-size: var(--text-sm);
+}
+
+thead {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+
+th {
+    background-color: var(--table-header-bg);
+    font-weight: var(--font-weight-semibold);
+    color: var(--primary-text-color);
+    font-size: var(--text-xs);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: var(--sp-2) var(--sp-3);
+    text-align: right;
+    border-bottom: 1px solid var(--card-border);
+    white-space: nowrap;
+    transition: background-color var(--transition-base), color var(--transition-base);
+}
+
+th:first-child {
+    text-align: left;
+}
+
+td {
+    padding: var(--sp-2) var(--sp-3);
+    text-align: right;
+    border-bottom: 1px solid var(--section-border);
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    color: var(--text-color);
+    transition: border-color var(--transition-base);
+    white-space: nowrap;
+}
+
+td:first-child {
+    text-align: left;
+    font-family: var(--font-sans);
+}
+
+tbody tr:nth-child(even) {
+    background-color: var(--table-zebra-bg);
+}
+
+tbody tr:hover {
+    background-color: var(--table-row-hover-bg);
+    transition: background-color 100ms ease;
+}
+
+/* ── Pagination Controls ───────────────────────────────────────── */
+.pagination-controls {
+    margin-top: var(--sp-4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: var(--sp-3);
+}
+
+.pagination-info {
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+    font-family: var(--font-mono);
+    margin: 0;
+}
+
+/* ── Responsive: Tablet (< 1024px) ────────────────────────────── */
+@media (max-width: 1024px) {
+    .container {
+        padding: var(--sp-4);
     }
-    
+
+    .main-content {
+        gap: var(--sp-4);
+    }
+
+    .variables-content {
+        gap: var(--sp-4);
+    }
+
+    .form-label-wrapper,
+    .info-label-wrapper {
+        flex: 0 0 120px;
+        padding-right: var(--sp-2);
+    }
+}
+
+/* ── Responsive: Mobile (< 640px) ─────────────────────────────── */
+@media (max-width: 640px) {
+    body {
+        padding: var(--sp-2);
+    }
+
+    .container {
+        padding: var(--sp-4) var(--sp-3);
+        border-radius: var(--radius-lg);
+    }
+
+    h1 {
+        font-size: var(--text-lg);
+        margin-bottom: var(--sp-4);
+    }
+
+    .top-right-controls {
+        position: static;
+        display: flex;
+        justify-content: center;
+        gap: var(--sp-1);
+        margin-bottom: var(--sp-3);
+    }
+
+    .main-content {
+        grid-template-columns: 1fr;
+        gap: var(--sp-4);
+    }
+
+    .variables-content {
+        grid-template-columns: 1fr;
+        gap: var(--sp-4);
+    }
+
+    .form-row,
+    .info-row {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .form-label-wrapper,
+    .info-label-wrapper {
+        flex: none;
+        text-align: left;
+        padding-right: 0;
+        margin-bottom: 2px;
+    }
+
+    .info-section {
+        min-width: auto;
+    }
+
     .variables-info-section {
         min-width: auto;
+    }
+
+    .hero-metric {
+        padding: var(--sp-3);
+    }
+
+    .hero-metric .info-label-wrapper {
+        text-align: center;
+    }
+
+    .hero-metric .info-display {
+        font-size: var(--text-xl);
+    }
+
+    .pagination-controls {
+        flex-direction: column;
+        gap: var(--sp-2);
+    }
+
+    .pagination-controls button {
+        width: 100%;
+    }
+
+    th, td {
+        padding: var(--sp-1) var(--sp-2);
+        font-size: var(--text-xs);
     }
 }
