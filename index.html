@@ -9,14 +9,14 @@
 <body>
     <div class="container">
         <div class="top-right-controls">
-            <div id="language-selector-wrapper">
+            <div id="language-selector-wrapper" class="control-pill">
                 <select id="language-select" title="Select Language">
                     <option value="en">english</option>
                     <option value="fr">français</option>
                     <!-- Add more languages here as they become available -->
                 </select>
             </div>
-            <div id="currency-selector-wrapper">
+            <div id="currency-selector-wrapper" class="control-pill">
                 <select id="currency" name="currency" title="Select Currency">
                     <option value="$">$</option>
                     <option value="€">€</option>
@@ -26,7 +26,7 @@
                     <option value="§">§</option>
                 </select>
             </div>
-            <div id="theme-dropdown-wrapper">
+            <div id="theme-dropdown-wrapper" class="control-pill">
                 <select id="theme-select" title="Select Theme">
                     <option value="system">💡</option> <!-- System (default) -->
                     <option value="light">☀️</option>
@@ -140,7 +140,7 @@
                     </div>
                 </div>
                 
-                <div class="info-row">
+                <div class="info-row hero-metric">
                     <div class="info-label-wrapper">
                         <label data-i18n="summaryMonthlyPayment">Monthly Payment</label>
                     </div>
@@ -180,7 +180,7 @@
         
         <div id="error" class="error"></div>
         
-        <div class="variables-section">
+        <div class="variables-section card">
             <h3 data-i18n="variablesTitle">Variables</h3>
             <div class="variables-content">
                 <div class="variables-form-container">
@@ -275,9 +275,9 @@
             </div>
         </div>
         
-        <div class="results" id="results" style="display: none;">
+        <div class="results card" id="results" style="display: none;">
             <h3 data-i18n="amortizationSchedule">Amortization Schedule</h3>
-            <div style="margin: 1rem 0;">
+            <div class="pagination-select-row">
                 <label for="pagination" data-i18n="showRowsPerPage">Show rows per page: </label>
                 <select id="pagination" onchange="updatePagination()">
                     <option value="12" selected data-i18n="oneYear">12 (1 year)</option>
@@ -287,7 +287,7 @@
                     <option value="0" data-i18n="all">All</option>
                 </select>
             </div>
-            <div style="overflow-x: auto;">
+            <div class="table-scroll-container">
                 <table id="amortizationTable">
                     <thead>
                         <tr>
@@ -304,7 +304,7 @@
                     </tbody>
                 </table>
             </div>
-            <div style="margin-top: 1rem; text-align: center;" class="pagination-controls">
+            <div class="pagination-controls">
                 <button id="prevBtn" onclick="previousPage()" disabled data-i18n="previous">Previous</button>
                 <span id="pageInfo" class="pagination-info">Page 1</span>
                 <button id="nextBtn" onclick="nextPage()" disabled data-i18n="next">Next</button>
